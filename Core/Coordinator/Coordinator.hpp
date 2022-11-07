@@ -25,6 +25,7 @@ public:
     }
 
     void Init(const std::string& windowName, const Vec2& windowSize);
+    void InitWithoutRender();
     void UpdateSystems(float dt);
 
     // Entity methods

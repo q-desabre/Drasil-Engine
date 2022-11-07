@@ -16,6 +16,17 @@ void Coordinator::Init(const std::string& windowName, const Vec2& windowSize)
     mRenderSystem->InitRender(windowName, windowSize);
 }
 
+void Coordinator::InitWithoutRender()
+{
+    mComponentManager = std::make_unique<ComponentManager>();
+    mEntityManager = std::make_unique<EntityManager>();
+    mEventManager = std::make_unique<EventManager>();
+    mSystemManager = std::make_unique<SystemManager>();
+    mLevelManager = std::make_unique<LevelManager>();
+    RegisterComponents();
+    RegisterSystems();
+}
+
 void Coordinator::RegisterComponents()
 {
     RegisterComponent<Gravity>();
@@ -25,6 +36,7 @@ void Coordinator::RegisterComponents()
     RegisterComponent<Transform>();
     RegisterComponent<InputComponent>();
     RegisterComponent<RenderComponent>();
+    RegisterComponent<ReplicatedComponent>();
 }
 
 void Coordinator::RegisterSystems()
