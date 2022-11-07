@@ -1,7 +1,9 @@
 #pragma once
 
+#include "Active.hpp"
 #include "Gravity.hpp"
-#include "Player.hpp"
+#include "InputComponent.hpp"
+#include "Render/RenderComponent.hpp"
 #include "RigidBody.hpp"
 #include "Thrust.hpp"
 #include "Transform.hpp"

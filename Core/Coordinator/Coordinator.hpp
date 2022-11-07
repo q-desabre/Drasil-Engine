@@ -1,10 +1,12 @@
 #pragma once
 
+#include <iostream>
 #include <memory>
 #include "ComponentManager.hpp"
 #include "ECS.hpp"
 #include "EntityManager.hpp"
 #include "EventManager.hpp"
+#include "LevelManager.hpp"
 #include "SystemManager.hpp"
 #include "Vec2.hpp"
 
@@ -12,11 +14,6 @@ class IRenderSystem;
 
 class Coordinator
 {
-private:
-    void RegisterComponents();
-    void RegisterSystems();
-    void RegisterPhysicsSystem();
-
 protected:
     Coordinator(){};
 
@@ -27,13 +24,17 @@ public:
         return instance;
     }
 
-public:
     void Init(const std::string& windowName, const Vec2& windowSize);
     void UpdateSystems(float dt);
 
     // Entity methods
     Entity CreateEntity();
     void DestroyEntity(Entity entity);
+    // get Entity signature
+    Signature GetSignature(Entity entity);
+
+    void PushLevel(std::shared_ptr<Level> Level);
+    void PopLevel();
 
     // Event methods
     void AddEventListener(EventId eventId,
@@ -41,6 +42,20 @@ public:
     void SendEvent(Event& event);
     void SendEvent(EventId eventId);
 
+private:
+    void RegisterComponents();
+    void RegisterSystems();
+    void RegisterPhysicsSystem();
+
+private:
+    std::unique_ptr<LevelManager> mLevelManager;
+    std::shared_ptr<IRenderSystem> mRenderSystem;
+    std::unique_ptr<ComponentManager> mComponentManager;
+    std::unique_ptr<EntityManager> mEntityManager;
+    std::unique_ptr<EventManager> mEventManager;
+    std::unique_ptr<SystemManager> mSystemManager;
+
+public:
     // Component methods
     template <typename T>
     void RegisterComponent()
@@ -98,13 +113,6 @@ public:
     {
         mSystemManager->SetSignature<T>(signature);
     }
-
-private:
-    std::shared_ptr<IRenderSystem> mRenderSystem;
-    std::unique_ptr<ComponentManager> mComponentManager;
-    std::unique_ptr<EntityManager> mEntityManager;
-    std::unique_ptr<EventManager> mEventManager;
-    std::unique_ptr<SystemManager> mSystemManager;
 };
 
 #define gCoordinator Coordinator::GetInstance()

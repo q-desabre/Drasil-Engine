@@ -2,19 +2,22 @@
 #pragma once
 
 #include <vector>
+#include "Active.hpp"
 #include "ECS.hpp"
 
-class Scene
+class Level
 {
 public:
-    Scene();
-    ~Scene();
+    Level();
+    ~Level();
 
     void AddEntity(Entity entity);
-    void RemoveEntity(Entity entity);
+    void Deactivate();
+    void Activate();
 
-    void Clear();
+    void Destroy();
 
 private:
     std::vector<Entity> mEntities;
+    Signature mSignature;
 };

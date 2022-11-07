@@ -13,5 +13,8 @@ public:
     void Update(float dt);
 
 private:
+    void InitRessources(const std::string& path);
+
+private:
     sf::RenderWindow mWindow;
 };

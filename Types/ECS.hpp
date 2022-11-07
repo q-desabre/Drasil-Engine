@@ -30,6 +30,7 @@ using ParamId = std::uint32_t;
 
 #define METHOD_LISTENER(EventType, Listener) \
     EventType, std::bind(&Listener, this, std::placeholders::_1)
+
 #define FUNCTION_LISTENER(EventType, Listener) \
     EventType, std::bind(&Listener, std::placeholders::_1)
 

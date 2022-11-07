@@ -19,22 +19,36 @@ file(GLOB_RECURSE GAME_SRC "Game/*.cpp")
 # set variable to main.cpp
 set(MAIN_SRC "main.cpp")
 
-# set include directories
-target_include_directories(ecs PUBLIC "Core" "Systems" "Components" "Types")
-
 # set source to target
 target_sources(ecs PRIVATE ${CORE_SRC} ${SYSTEM_SRC} ${MAIN_SRC} ${GAME_SRC})
 
 # Core and subdirectories target include
-target_include_directories(ecs PUBLIC "Core" "Core/System" "Core/Entity" "Core/Event" "Core/Component")
+target_include_directories(ecs
+    PUBLIC "Core"
+    "Core/System"
+    "Core/Entity"
+    "Core/Event"
+    "Core/Component"
+    "Core/Drasil"
+    "Core/Level"
+    "Core/Manager"
+    "Core/Coordinator")
 
-target_include_directories(ecs PUBLIC "Systems" "Systems/Render" "Systems/Physics" "Systems/PlayerController")
+target_include_directories(ecs
+    PUBLIC "Systems"
+    "Systems/Render"
+    "Systems/Physics"
+    "Systems/PlayerController")
 
-target_include_directories(ecs PUBLIC "Types" "Types/Maths")
+target_include_directories(ecs
+    PUBLIC "Types"
+    "Types/Maths")
 
-target_include_directories(ecs PUBLIC "Components")
+target_include_directories(ecs
+    PUBLIC "Components")
 
-target_include_directories(ecs PUBLIC "Game")
+target_include_directories(ecs
+    PUBLIC "Game")
 
 # add sfml
 find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)

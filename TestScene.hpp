@@ -1,13 +1,20 @@
 
 #pragma once
 
+#include "Level.hpp"
 #include "Player.hpp"
-#include "Scene.hpp"
 
-class TestScene : public Scene
+class TestLevel : public Level
 {
 public:
-    TestScene() { Player p; }
+    TestLevel()
+    {
+        Player p;
+        Actor a;
 
-    ~TestScene() {}
+        AddEntity(p.GetID());
+        AddEntity(a.GetID());
+    }
+
+    ~TestLevel() {}
 };

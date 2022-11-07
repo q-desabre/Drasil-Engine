@@ -6,8 +6,9 @@
 void PlayerControlSystem::InitSignature()
 {
     Signature signature;
-    signature.set(gCoordinator.GetComponentType<Player>());
+    signature.set(gCoordinator.GetComponentType<InputComponent>());
     signature.set(gCoordinator.GetComponentType<Transform>());
+    signature.set(gCoordinator.GetComponentType<Active>());
     gCoordinator.SetSystemSignature<PlayerControlSystem>(signature);
 
     gCoordinator.AddEventListener(METHOD_LISTENER(

@@ -9,6 +9,7 @@ void Coordinator::Init(const std::string& windowName, const Vec2& windowSize)
     mEntityManager = std::make_unique<EntityManager>();
     mEventManager = std::make_unique<EventManager>();
     mSystemManager = std::make_unique<SystemManager>();
+    mLevelManager = std::make_unique<LevelManager>();
     RegisterComponents();
     RegisterSystems();
     mRenderSystem = RegisterSystem<RenderSystem>();
@@ -18,10 +19,12 @@ void Coordinator::Init(const std::string& windowName, const Vec2& windowSize)
 void Coordinator::RegisterComponents()
 {
     RegisterComponent<Gravity>();
+    RegisterComponent<Active>();
     RegisterComponent<RigidBody>();
     RegisterComponent<Thrust>();
     RegisterComponent<Transform>();
-    RegisterComponent<Player>();
+    RegisterComponent<InputComponent>();
+    RegisterComponent<RenderComponent>();
 }
 
 void Coordinator::RegisterSystems()
@@ -34,6 +37,7 @@ void Coordinator::UpdateSystems(float dt)
 {
     mRenderSystem->ProcessEvents();
     mSystemManager->UpdateSystems(dt);
+    mRenderSystem->Update(dt);
 }
 
 // Entity methods
@@ -52,6 +56,11 @@ void Coordinator::DestroyEntity(Entity entity)
     mSystemManager->EntityDestroyed(entity);
 }
 
+Signature Coordinator::GetSignature(Entity entity)
+{
+    return mEntityManager->GetSignature(entity);
+}
+
 // Event methods
 
 void Coordinator::AddEventListener(EventId eventId,
@@ -68,4 +77,16 @@ void Coordinator::SendEvent(Event& event)
 void Coordinator::SendEvent(EventId eventId)
 {
     mEventManager->SendEvent(eventId);
+}
+
+// Level
+
+void Coordinator::PushLevel(std::shared_ptr<Level> Level)
+{
+    mLevelManager->PushLevel(Level);
+}
+
+void Coordinator::PopLevel()
+{
+    mLevelManager->PopLevel();
 }
