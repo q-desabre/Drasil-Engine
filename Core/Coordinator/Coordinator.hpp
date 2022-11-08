@@ -7,6 +7,7 @@
 #include "EntityManager.hpp"
 #include "EventManager.hpp"
 #include "LevelManager.hpp"
+#include "NetworkSystem.hpp"
 #include "SystemManager.hpp"
 #include "Vec2.hpp"
 
@@ -15,14 +16,10 @@ class IRenderSystem;
 class Coordinator
 {
 protected:
-    Coordinator(){};
+    Coordinator();
 
 public:
-    static Coordinator& GetInstance()
-    {
-        static Coordinator instance;
-        return instance;
-    }
+    static Coordinator& GetInstance();
 
     void Init(const std::string& windowName, const Vec2& windowSize);
     void InitWithoutRender();
@@ -31,11 +28,7 @@ public:
     // Entity methods
     Entity CreateEntity();
     void DestroyEntity(Entity entity);
-    // get Entity signature
     Signature GetSignature(Entity entity);
-
-    void PushLevel(std::shared_ptr<Level> Level);
-    void PopLevel();
 
     // Event methods
     void AddEventListener(EventId eventId,
@@ -43,18 +36,32 @@ public:
     void SendEvent(Event& event);
     void SendEvent(EventId eventId);
 
+    // Level
+
+    void PushLevel(std::shared_ptr<Level> Level);
+    void PopLevel();
+
+    // Network methods
+    void StartServer(unsigned short port);
+    void StartClient(unsigned short port);
+
 private:
     void RegisterComponents();
     void RegisterSystems();
     void RegisterPhysicsSystem();
 
 private:
+    // Core Managers
     std::unique_ptr<LevelManager> mLevelManager;
-    std::shared_ptr<IRenderSystem> mRenderSystem;
     std::unique_ptr<ComponentManager> mComponentManager;
     std::unique_ptr<EntityManager> mEntityManager;
     std::unique_ptr<EventManager> mEventManager;
     std::unique_ptr<SystemManager> mSystemManager;
+    // Core Systems
+    std::shared_ptr<IRenderSystem> mRenderSystem;
+    std::shared_ptr<NetworkSystem> mNetworkSystem;
+
+    // Template Methods
 
 public:
     // Component methods

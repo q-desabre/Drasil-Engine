@@ -18,6 +18,9 @@ void PhysicsSystem::Update(float dt)
     // std::cout << "PhysicsSystem::Update" << std::endl;
     //  print nb of entities
     // std::cout << "Nb of entities: " << mEntities.size() << std::endl;
+    if (mEntities.size() == 0)
+        return;
+
     for (auto const& entity : mEntities)
     {
         auto& active = gCoordinator.GetComponent<Active>(entity);

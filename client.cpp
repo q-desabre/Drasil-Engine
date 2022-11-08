@@ -4,9 +4,9 @@
 
 int main()
 {
-    Drasil drasil;
+    Drasil drasil("Drasil", Vec2(1280, 720));
 
-    drasil.StartClient();
+    drasil.StartClient(54000);
     // drasil.PushLevel(std::make_shared<TestLevel>());
 
     // drasil.Start();

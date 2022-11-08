@@ -3,6 +3,14 @@
 #include "Components.hpp"
 #include "Systems.hpp"
 
+Coordinator& Coordinator::GetInstance()
+{
+    static Coordinator instance;
+    return instance;
+}
+
+Coordinator::Coordinator() {}
+
 void Coordinator::Init(const std::string& windowName, const Vec2& windowSize)
 {
     mComponentManager = std::make_unique<ComponentManager>();
@@ -27,6 +35,20 @@ void Coordinator::InitWithoutRender()
     RegisterSystems();
 }
 
+// Network methods
+
+void Coordinator::StartServer(unsigned short port)
+{
+    mNetworkSystem = RegisterSystem<NetworkSystem>();
+    mNetworkSystem->StartServer(port);
+}
+
+void Coordinator::StartClient(unsigned short port)
+{
+    mNetworkSystem = RegisterSystem<NetworkSystem>();
+    mNetworkSystem->StartClient(port);
+}
+
 void Coordinator::RegisterComponents()
 {
     RegisterComponent<Gravity>();
@@ -36,7 +58,7 @@ void Coordinator::RegisterComponents()
     RegisterComponent<Transform>();
     RegisterComponent<InputComponent>();
     RegisterComponent<RenderComponent>();
-    RegisterComponent<ReplicatedComponent>();
+    RegisterComponent<NetworkComponent>();
 }
 
 void Coordinator::RegisterSystems()
@@ -47,9 +69,13 @@ void Coordinator::RegisterSystems()
 
 void Coordinator::UpdateSystems(float dt)
 {
-    mRenderSystem->ProcessEvents();
+    if (mRenderSystem != nullptr)
+        mRenderSystem->ProcessEvents();
+
     mSystemManager->UpdateSystems(dt);
-    mRenderSystem->Update(dt);
+
+    if (mRenderSystem != nullptr)
+        mRenderSystem->Update(dt);
 }
 
 // Entity methods

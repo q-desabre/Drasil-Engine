@@ -7,4 +7,4 @@
 struct ReplicatedComponent
 {
     std::vector<std::type_info> types;
-}
+};

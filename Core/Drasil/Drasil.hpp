@@ -15,8 +15,8 @@ public:
     void PushLevel(std::shared_ptr<Level> Level);
     void PopLevel();
 
-    void StartServer();
-    void StartClient();
+    void StartServer(unsigned short port);
+    void StartClient(unsigned short port);
 
     void Start();
     void Stop(Event& event);

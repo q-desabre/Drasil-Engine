@@ -57,6 +57,9 @@ target_include_directories(server
 target_include_directories(server
     PUBLIC "Game")
 
+target_include_directories(server
+    PUBLIC "Tools" "Interface")
+
 # Core and subdirectories target include
 target_include_directories(client
     PUBLIC "Core"
@@ -84,6 +87,9 @@ target_include_directories(client
 
 target_include_directories(client
     PUBLIC "Game")
+
+target_include_directories(client
+    PUBLIC "Tools" "Interface")
 
 # add sfml
 find_package(SFML 2.5 COMPONENTS graphics audio network REQUIRED)

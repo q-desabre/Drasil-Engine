@@ -50,6 +50,8 @@ void RenderSystem::InitRender(const std::string& windowName,
 void RenderSystem::Update(float dt)
 {
     mWindow.clear();
+    if (mEntities.size() == 0)
+        return;
     for (auto entity : mEntities)
     {
         std::cout << "RenderSystem::Update" << std::endl;

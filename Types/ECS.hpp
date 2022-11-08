@@ -41,6 +41,25 @@ namespace Events::Window
     const EventId INPUT = "Events::Window::INPUT"_hash;
 }
 
+namespace Events::Network
+{
+    const EventId CONNECTED = "Events::Network::CONNECTED"_hash;
+    const EventId DISCONNECTED = "Events::Network::DISCONNECTED"_hash;
+    const EventId PACKET_RECEIVED = "Events::Network::PACKET_RECEIVED"_hash;
+}
+
+namespace Events::Network::Entity
+{
+    const EventId CREATED = "Events::Network::Entity::CREATED"_hash;
+    const EventId DESTROYED = "Events::Network::Entity::DESTROYED"_hash;
+    const EventId UPDATED = "Events::Network::Entity::UPDATED"_hash;
+}
+
+namespace Events::Network::Packet
+{
+    const ParamId PACKET = "Events::Network::Packet::PACKET"_hash;
+}
+
 namespace Events::Window::Input
 {
     const ParamId INPUT = "Events::Window::Input::INPUT"_hash;
