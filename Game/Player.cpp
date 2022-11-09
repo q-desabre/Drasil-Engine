@@ -9,20 +9,24 @@ Player::Player()
 {
     std::cout << "Player created with id " << mID << std::endl;
     gCoordinator.AddComponent(mID, InputComponent{});
+
     // gCoordinator.AddComponent(mID, RenderComponent{.texture = "Img_Test"});
 
     gCoordinator.AddComponent(
         mID,
         NetworkComponent{.Create = std::bind(&Player::CreateNetwork, this),
-                         .Update = std::bind(Player::UpdateNetwork, this),
+                         .Update = std::bind(&Player::UpdateNetwork, this),
                          .OnUpdate = std::bind(&Player::OnUpdateNetwork, this,
                                                std::placeholders::_1),
                          .Destroy = std::bind(&Player::DestroyNetwork, this)});
+
     // auto& render = gCoordinator.GetComponent<RenderComponent>(mID);
     // render.sprite.setTexture(Textures.get(render.texture));
     //    CreateNetwork();
+
     auto& network = gCoordinator.GetComponent<NetworkComponent>(mID);
-    network.Update();
+    network.Create();
+
     BIND_PACKET_RECV(Player::OnUpdateNetwork);
 }
 
@@ -42,7 +46,7 @@ void Player::CreateNetwork()
 
 void Player::UpdateNetwork()
 {
-    std::cout << "here !" << std::endl;
+    // std::cout << "here !" << std::endl;
     Packet p;
 
     p << 2 << mID;

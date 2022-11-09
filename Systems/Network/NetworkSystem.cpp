@@ -61,7 +61,7 @@ void NetworkSystem::RecvPacketListener(Event& event)
     Packet packet = event.GetParam<Packet>(Events::Network::PACKET);
     std::string message;
     packet >> message;
-    std::cout << "Recieve : " << message << std::endl;
+    // std::cout << "Recieve : " << message << std::endl;
 
     if (mClientPort == 0)
     {

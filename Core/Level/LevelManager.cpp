@@ -19,4 +19,6 @@ void LevelManager::PopLevel()
 {
     mLevels.top()->Destroy();
     mLevels.pop();
+    if (!mLevels.empty())
+        mLevels.top()->Activate();
 }

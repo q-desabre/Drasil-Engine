@@ -5,7 +5,6 @@
 
 namespace drasil
 {
-
     class IReplicated
     {
         virtual void CreateNetwork() = 0;

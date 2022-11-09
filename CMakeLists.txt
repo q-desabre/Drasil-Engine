@@ -3,9 +3,9 @@ cmake_minimum_required(VERSION 3.14)
 # set CMAKE_CXX to c++20
 set(CMAKE_CXX_STANDARD 20)
 
-project(ecs)
+project(drasil)
 
-add_executable(server)
+add_executable(drasil)
 add_executable(client)
 
 # set variable for source files of Core/ as *.cpp
@@ -21,16 +21,16 @@ file(GLOB_RECURSE GAME_SRC "Game/*.cpp")
 set(SERVER_SRC "server.cpp")
 
 # set variable to client.cpp
-set(CLIENT_SRC "client.cpp")
+set(CLIENT_SRC "client.cpp" "TestGame/EntityFactory.cpp")
 
 # set source to target
-target_sources(server PRIVATE ${CORE_SRC} ${SYSTEM_SRC} ${SERVER_SRC} ${GAME_SRC})
+target_sources(drasil PRIVATE ${CORE_SRC} ${SYSTEM_SRC} ${SERVER_SRC} ${GAME_SRC})
 
 # set source to target
 target_sources(client PRIVATE ${CORE_SRC} ${SYSTEM_SRC} ${CLIENT_SRC} ${GAME_SRC})
 
 # Core and subdirectories target include
-target_include_directories(server
+target_include_directories(drasil
     PUBLIC "Core"
     "Core/System"
     "Core/Entity"
@@ -41,24 +41,24 @@ target_include_directories(server
     "Core/Manager"
     "Core/Coordinator")
 
-target_include_directories(server
+target_include_directories(drasil
     PUBLIC "Systems"
     "Systems/Network"
     "Systems/Render"
     "Systems/Physics"
     "Systems/PlayerController")
 
-target_include_directories(server
+target_include_directories(drasil
     PUBLIC "Types"
     "Types/Maths")
 
-target_include_directories(server
+target_include_directories(drasil
     PUBLIC "Components")
 
-target_include_directories(server
+target_include_directories(drasil
     PUBLIC "Game")
 
-target_include_directories(server
+target_include_directories(drasil
     PUBLIC "Tools" "Interface")
 
 # Core and subdirectories target include
@@ -88,12 +88,12 @@ target_include_directories(client
     PUBLIC "Components")
 
 target_include_directories(client
-    PUBLIC "Game")
+    PUBLIC "Game" "TestGame")
 
 target_include_directories(client
     PUBLIC "Tools" "Interface")
 
 # add sfml
 find_package(SFML 2.5 COMPONENTS graphics audio network REQUIRED)
-target_link_libraries(server sfml-graphics sfml-audio sfml-network)
+target_link_libraries(drasil sfml-graphics sfml-audio sfml-network)
 target_link_libraries(client sfml-graphics sfml-audio sfml-network)

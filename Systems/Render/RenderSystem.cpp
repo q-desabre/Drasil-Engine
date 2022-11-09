@@ -81,16 +81,11 @@ void RenderSystem::InitRessources(const std::string& path)
     // iterator over file
     for (const auto& entry : std::filesystem::directory_iterator(path))
     {
-        // check if directory
         if (std::filesystem::is_directory(entry.path()))
-        {
             InitRessources(entry.path().string());
-        }
         else
         {
             std::string name;
-
-            // check if path end with .png
             if (entry.path().extension() == ".png")
             {
                 name += entry.path().parent_path().filename().string();
