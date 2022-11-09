@@ -4,17 +4,17 @@
 #include "Level.hpp"
 #include "Player.hpp"
 
-class TestLevel : public Level
+class TestLevel : public drasil::Level
 {
 public:
     TestLevel()
     {
-        Player p;
-        Actor a;
-
         AddEntity(p.GetID());
-        AddEntity(a.GetID());
+        //   AddEntity(a.GetID());
     }
 
     ~TestLevel() {}
+
+private:
+    drasil::Player p;
 };

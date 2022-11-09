@@ -4,9 +4,13 @@
 #include <functional>
 #include "Event.hpp"
 
-struct NetworkComponent
+namespace drasil
 {
-    std::function<void(Event&)> create;
-    std::function<void(Event&)> update;
-    std::function<void(Event&)> destroy;
-};
+    struct NetworkComponent
+    {
+        std::function<void()> Create;
+        std::function<void()> Update;
+        std::function<void(Event& e)> OnUpdate;
+        std::function<void()> Destroy;
+    };
+}

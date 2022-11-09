@@ -4,24 +4,28 @@
 #include <chrono>
 #include "Coordinator.hpp"
 
-class Drasil
+namespace drasil
 {
-public:
-    Drasil();
-    Drasil(const std::string& name, const Vec2& winSize);
 
-    ~Drasil();
+    class Drasil
+    {
+    public:
+        Drasil();
+        Drasil(const std::string& name, const Vec2& winSize);
 
-    void PushLevel(std::shared_ptr<Level> Level);
-    void PopLevel();
+        ~Drasil();
 
-    void StartServer(unsigned short port);
-    void StartClient(unsigned short port);
+        void PushLevel(std::shared_ptr<Level> Level);
+        void PopLevel();
 
-    void Start();
-    void Stop(Event& event);
+        void StartServer(unsigned short port);
+        void StartClient(unsigned short port);
 
-private:
-    float mDelta = 0.0f;
-    bool mIsRunning = true;
-};
+        void Start();
+        void Stop(Event& event);
+
+    private:
+        float mDelta = 0.0f;
+        bool mIsRunning = true;
+    };
+}

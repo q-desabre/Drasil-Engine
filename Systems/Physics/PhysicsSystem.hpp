@@ -2,10 +2,13 @@
 
 #include "System.hpp"
 
-class PhysicsSystem : public System
+namespace drasil
 {
-public:
-    void InitSignature();
+    class PhysicsSystem : public System
+    {
+    public:
+        void InitSignature();
 
-    void Update(float dt);
-};
+        void Update(float dt);
+    };
+}

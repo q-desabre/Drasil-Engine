@@ -7,12 +7,14 @@
 #include "Coordinator.hpp"
 #include "Manager.hpp"
 
+using namespace drasil;
+
 void RenderSystem::InitSignature()
 {
     Signature signature;
     signature.set(gCoordinator.GetComponentType<RenderComponent>());
-    signature.set(gCoordinator.GetComponentType<Transform>());
-    signature.set(gCoordinator.GetComponentType<Active>());
+    signature.set(gCoordinator.GetComponentType<TransformComponent>());
+    signature.set(gCoordinator.GetComponentType<StatusComponent>());
     gCoordinator.SetSystemSignature<RenderSystem>(signature);
 }
 
@@ -55,12 +57,13 @@ void RenderSystem::Update(float dt)
     for (auto entity : mEntities)
     {
         std::cout << "RenderSystem::Update" << std::endl;
-        auto& active = gCoordinator.GetComponent<Active>(entity);
+        auto& status = gCoordinator.GetComponent<StatusComponent>(entity);
 
-        if (active.status)
+        if (status.active)
         {
             std::cout << "RenderSystem::Update" << std::endl;
-            auto& transform = gCoordinator.GetComponent<Transform>(entity);
+            auto& transform =
+                gCoordinator.GetComponent<TransformComponent>(entity);
             auto& render = gCoordinator.GetComponent<RenderComponent>(entity);
             render.sprite.setPosition(transform.position.x,
                                       transform.position.y);

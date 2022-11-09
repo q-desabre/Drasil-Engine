@@ -4,14 +4,17 @@
 #include "Components.hpp"
 #include "Coordinator.hpp"
 
-class Actor
+namespace drasil
 {
-public:
-    Actor();
-    ~Actor();
+    class Actor
+    {
+    public:
+        Actor();
+        ~Actor();
 
-    Entity GetID() const;
+        Entity GetID() const;
 
-protected:
-    Entity mID;
-};
+    protected:
+        Entity mID;
+    };
+}

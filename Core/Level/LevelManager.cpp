@@ -1,6 +1,8 @@
 
 #include "LevelManager.hpp"
 
+using namespace drasil;
+
 LevelManager::LevelManager() {}
 
 LevelManager::~LevelManager() {}

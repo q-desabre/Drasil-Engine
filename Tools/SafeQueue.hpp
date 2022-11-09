@@ -4,34 +4,37 @@
 #include <mutex>
 #include <queue>
 
-template <typename T>
-class SafeQueue
+namespace drasil
 {
-public:
-    SafeQueue() = default;
-    ~SafeQueue() = default;
-
-    void Push(T item)
+    template <typename T>
+    class SafeQueue
     {
-        std::lock_guard<std::mutex> lock(mMutex);
-        mQueue.push(item);
-    }
+    public:
+        SafeQueue() = default;
+        ~SafeQueue() = default;
 
-    T Pop()
-    {
-        std::lock_guard<std::mutex> lock(mMutex);
-        T item = mQueue.front();
-        mQueue.pop();
-        return item;
-    }
+        void Push(T item)
+        {
+            std::lock_guard<std::mutex> lock(mMutex);
+            mQueue.push(item);
+        }
 
-    bool Empty()
-    {
-        std::lock_guard<std::mutex> lock(mMutex);
-        return mQueue.empty();
-    }
+        T Pop()
+        {
+            std::lock_guard<std::mutex> lock(mMutex);
+            T item = mQueue.front();
+            mQueue.pop();
+            return item;
+        }
 
-private:
-    std::queue<T> mQueue;
-    std::mutex mMutex;
-};
+        bool Empty()
+        {
+            std::lock_guard<std::mutex> lock(mMutex);
+            return mQueue.empty();
+        }
+
+    private:
+        std::queue<T> mQueue;
+        std::mutex mMutex;
+    };
+}

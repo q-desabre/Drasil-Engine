@@ -1,6 +1,8 @@
 
 #include "Drasil.hpp"
 
+using namespace drasil;
+
 Drasil::Drasil()
 {
     gCoordinator.InitWithoutRender();
@@ -50,12 +52,9 @@ void Drasil::Stop(Event& event)
     mIsRunning = false;
 }
 
-#include <SFML/Network.hpp>
-
 void Drasil::StartServer(unsigned short port)
 {
     gCoordinator.StartServer(port);
-    Start();
 }
 
 // TODO ADD IP

@@ -6,36 +6,40 @@
 #include "ECS.hpp"
 #include "Event.hpp"
 
-class EventManager
+namespace drasil
 {
-public:
-    void AddListener(EventId eventId,
-                     std::function<void(Event&)> const& listener)
-    {
-        listeners[eventId].push_back(listener);
-    }
 
-    void SendEvent(Event& event)
+    class EventManager
     {
-        uint32_t type = event.GetType();
-
-        for (auto const& listener : listeners[type])
+    public:
+        void AddListener(EventId eventId,
+                         std::function<void(Event&)> const& listener)
         {
-            listener(event);
+            listeners[eventId].push_back(listener);
         }
-    }
 
-    void SendEvent(EventId eventId)
-    {
-        Event event(eventId);
-
-        for (auto const& listener : listeners[eventId])
+        void SendEvent(Event& event)
         {
-            listener(event);
-        }
-    }
+            uint32_t type = event.GetType();
 
-private:
-    std::unordered_map<EventId, std::list<std::function<void(Event&)>>>
-        listeners;
-};
+            for (auto const& listener : listeners[type])
+            {
+                listener(event);
+            }
+        }
+
+        void SendEvent(EventId eventId)
+        {
+            Event event(eventId);
+
+            for (auto const& listener : listeners[eventId])
+            {
+                listener(event);
+            }
+        }
+
+    private:
+        std::unordered_map<EventId, std::list<std::function<void(Event&)>>>
+            listeners;
+    };
+}

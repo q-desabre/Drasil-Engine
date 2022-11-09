@@ -1,11 +1,9 @@
 #pragma once
 
-#include "Active.hpp"
-#include "Gravity.hpp"
+#include "GravityComponent.hpp"
 #include "InputComponent.hpp"
 #include "NetworkComponent.hpp"
 #include "Render/RenderComponent.hpp"
-#include "ReplicatedComponent.hpp"
-#include "RigidBody.hpp"
-#include "Thrust.hpp"
-#include "Transform.hpp"
+#include "RigidBodyComponent.hpp"
+#include "StatusComponent.hpp"
+#include "TransformComponent.hpp"

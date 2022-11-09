@@ -3,12 +3,14 @@
 #include "Components.hpp"
 #include "Coordinator.hpp"
 
+using namespace drasil;
+
 void PlayerControlSystem::InitSignature()
 {
     Signature signature;
     signature.set(gCoordinator.GetComponentType<InputComponent>());
-    signature.set(gCoordinator.GetComponentType<Transform>());
-    signature.set(gCoordinator.GetComponentType<Active>());
+    signature.set(gCoordinator.GetComponentType<TransformComponent>());
+    signature.set(gCoordinator.GetComponentType<StatusComponent>());
     gCoordinator.SetSystemSignature<PlayerControlSystem>(signature);
 
     gCoordinator.AddEventListener(METHOD_LISTENER(

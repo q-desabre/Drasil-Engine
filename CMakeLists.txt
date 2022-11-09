@@ -43,6 +43,7 @@ target_include_directories(server
 
 target_include_directories(server
     PUBLIC "Systems"
+    "Systems/Network"
     "Systems/Render"
     "Systems/Physics"
     "Systems/PlayerController")
@@ -74,6 +75,7 @@ target_include_directories(client
 
 target_include_directories(client
     PUBLIC "Systems"
+    "Systems/Network"
     "Systems/Render"
     "Systems/Physics"
     "Systems/PlayerController")

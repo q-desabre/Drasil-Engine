@@ -1,6 +1,8 @@
 #pragma once
 
-
-struct InputComponent
+namespace drasil
 {
-};
+    struct InputComponent
+    {
+    };
+}

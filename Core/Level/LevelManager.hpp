@@ -5,15 +5,19 @@
 #include <stack>
 #include "Level.hpp"
 
-class LevelManager
+namespace drasil
 {
-public:
-    LevelManager();
-    ~LevelManager();
 
-    void PushLevel(std::shared_ptr<Level> Level);
-    void PopLevel();
+    class LevelManager
+    {
+    public:
+        LevelManager();
+        ~LevelManager();
 
-private:
-    std::stack<std::shared_ptr<Level>> mLevels;
-};
+        void PushLevel(std::shared_ptr<Level> Level);
+        void PopLevel();
+
+    private:
+        std::stack<std::shared_ptr<Level>> mLevels;
+    };
+}

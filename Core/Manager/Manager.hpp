@@ -2,46 +2,51 @@
 #include <SFML/Graphics.hpp>
 #include <map>
 
-template <class T>
-class Manager
+namespace drasil
 {
-public:
-    // Get the only instance of the class
-    static Manager& getInstance()
+
+    template <class T>
+    class Manager
     {
-        static Manager<T> _instance;
-
-        return _instance;
-    }
-
-    const T& get(const std::string& key)
-    {
-        try
+    public:
+        // Get the only instance of the class
+        static Manager& getInstance()
         {
-            return data.at(key);
+            static Manager<T> _instance;
+
+            return _instance;
         }
-        catch (const std::out_of_range& e)
+
+        const T& get(const std::string& key)
         {
-            throw std::out_of_range("Key " + key + " not found");
+            try
+            {
+                return data.at(key);
+            }
+            catch (const std::out_of_range& e)
+            {
+                throw std::out_of_range("Key " + key + " not found");
+            }
         }
-    }
 
-    void add(const std::string& key, const std::string& path);
+        void add(const std::string& key, const std::string& path);
 
-    // Disable the possibility to construct class by other means
-    Manager(Manager& other) = delete;
-    void operator=(const Manager& other) = delete;
+        // Disable the possibility to construct class by other means
+        Manager(Manager& other) = delete;
+        void operator=(const Manager& other) = delete;
 
-protected:
-    Manager() {}
+    protected:
+        Manager() {}
 
-    std::map<std::string, T> data;
-};
+        std::map<std::string, T> data;
+    };
 
-typedef Manager<sf::Texture> TextureManager;
-typedef Manager<sf::Font> FontManager;
-typedef Manager<sf::SoundBuffer> SoundManager;
+    typedef Manager<sf::Texture> TextureManager;
+    typedef Manager<sf::Font> FontManager;
+    typedef Manager<sf::SoundBuffer> SoundManager;
 
 #define Textures TextureManager::getInstance()
 #define Fonts FontManager::getInstance()
 #define Sounds SoundManager::getInstance()
+
+}

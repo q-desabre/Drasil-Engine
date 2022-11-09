@@ -3,44 +3,67 @@
 #include "Macro.hpp"
 #include "Manager.hpp"
 
+using namespace drasil;
+
 Player::Player()
 {
+    std::cout << "Player created with id " << mID << std::endl;
     gCoordinator.AddComponent(mID, InputComponent{});
-    gCoordinator.AddComponent(mID, RenderComponent{.texture = "Img_Test"});
-    // gCoordinator.AddComponent(
-    //     mID,
-    //     NetworkComponent{
-    auto& render = gCoordinator.GetComponent<RenderComponent>(mID);
-    render.sprite.setTexture(Textures.get(render.texture));
+    // gCoordinator.AddComponent(mID, RenderComponent{.texture = "Img_Test"});
 
-    // gCoordinator.AddEventListener(METHOD_LISTENER(
-    //     Events::Network::PACKET_RECEIVED, Player::NetworkReceive));
+    gCoordinator.AddComponent(
+        mID,
+        NetworkComponent{.Create = std::bind(&Player::CreateNetwork, this),
+                         .Update = std::bind(Player::UpdateNetwork, this),
+                         .OnUpdate = std::bind(&Player::OnUpdateNetwork, this,
+                                               std::placeholders::_1),
+                         .Destroy = std::bind(&Player::DestroyNetwork, this)});
+    // auto& render = gCoordinator.GetComponent<RenderComponent>(mID);
+    // render.sprite.setTexture(Textures.get(render.texture));
+    //    CreateNetwork();
+    auto& network = gCoordinator.GetComponent<NetworkComponent>(mID);
+    network.Update();
+    BIND_PACKET_RECV(Player::OnUpdateNetwork);
 }
 
 Player::~Player() {}
 
-void Player::Create()
+void Player::CreateNetwork()
 {
-    // Server
-    // create sf packet and to packet to send
-    // Client
-    // BIND BY FACTORY
+    std::cout << "CreateNetwork" << std::endl;
+    Packet p;
+
+    p << 1 << mID;
+    // << mPosition.x << mPosition.y;
+    Event e(Events::Network::SEND_PACKET);
+    e.SetParam(Events::Network::PACKET, p);
+    gCoordinator.SendEvent(e);
 }
 
-void Player::Update()
+void Player::UpdateNetwork()
 {
-    // Server
-    // create sf packet and to packet to send
-    // Client
-    // BIND BY CLASS -> OnUpdate ?
+    std::cout << "here !" << std::endl;
+    Packet p;
+
+    p << 2 << mID;
+    // << mPosition.x << mPosition.y;
+    Event e(Events::Network::SEND_PACKET);
+    e.SetParam(Events::Network::PACKET, p);
+    gCoordinator.SendEvent(e);
 }
 
-void Player::OnUpdate() {}
-
-void Player::Destroy()
+void Player::OnUpdateNetwork(Event& e)
 {
-    // Server
-    // create sf packet and to packet to send
-    // Client
-    // BIND BY GAME ?
+    Packet packet = e.GetParam<Packet>(Events::Network::PACKET);
+    std::cout << "Recieve update packed player" << std::endl;
+}
+
+void Player::DestroyNetwork()
+{
+    Packet p;
+
+    p << 3 << mID;
+    Event e(Events::Network::SEND_PACKET);
+    e.SetParam(Events::Network::PACKET, p);
+    gCoordinator.SendEvent(e);
 }

@@ -4,8 +4,11 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 
-struct RenderComponent
+namespace drasil
 {
-    std::string texture;
-    sf::Sprite sprite;
-};
+    struct RenderComponent
+    {
+        std::string texture;
+        sf::Sprite sprite;
+    };
+}

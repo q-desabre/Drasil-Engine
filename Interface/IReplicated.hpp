@@ -1,10 +1,16 @@
 
 #pragma once
 
-class IReplicated
+#include "Event.hpp"
+
+namespace drasil
 {
-    virtual void Create() = 0;
-    virtual void Update() = 0;
-    virtual void OnUpdate() = 0;
-    virtual void Destroy() = 0;
-};
+
+    class IReplicated
+    {
+        virtual void CreateNetwork() = 0;
+        virtual void UpdateNetwork() = 0;
+        virtual void OnUpdateNetwork(Event& event) = 0;
+        virtual void DestroyNetwork() = 0;
+    };
+}

@@ -2,17 +2,21 @@
 
 #include "System.hpp"
 
-class Event;
-
-class PlayerControlSystem : public System
+namespace drasil
 {
-public:
-    void InitSignature();
 
-    void Update(float dt);
+    class Event;
 
-private:
-    std::bitset<8> mButtons;
+    class PlayerControlSystem : public System
+    {
+    public:
+        void InitSignature();
 
-    void InputListener(Event& event);
-};
+        void Update(float dt);
+
+    private:
+        std::bitset<8> mButtons;
+
+        void InputListener(Event& event);
+    };
+}

@@ -3,6 +3,8 @@
 #include "Components.hpp"
 #include "Systems.hpp"
 
+using namespace drasil;
+
 Coordinator& Coordinator::GetInstance()
 {
     static Coordinator instance;
@@ -51,11 +53,10 @@ void Coordinator::StartClient(unsigned short port)
 
 void Coordinator::RegisterComponents()
 {
-    RegisterComponent<Gravity>();
-    RegisterComponent<Active>();
-    RegisterComponent<RigidBody>();
-    RegisterComponent<Thrust>();
-    RegisterComponent<Transform>();
+    RegisterComponent<GravityComponent>();
+    RegisterComponent<StatusComponent>();
+    RegisterComponent<RigidBodyComponent>();
+    RegisterComponent<TransformComponent>();
     RegisterComponent<InputComponent>();
     RegisterComponent<RenderComponent>();
     RegisterComponent<NetworkComponent>();

@@ -4,18 +4,22 @@
 #include "Coordinator.hpp"
 #include "Macro.hpp"
 
+using namespace drasil;
+
 void NetworkSystem::InitSignature()
 {
     Signature signature;
-    signature.set(gCoordinator.GetComponentType<Active>());
+    signature.set(gCoordinator.GetComponentType<StatusComponent>());
     signature.set(gCoordinator.GetComponentType<NetworkComponent>());
     gCoordinator.SetSystemSignature<NetworkSystem>(signature);
 
-    BIND_PACKET(NetworkSystem::PacketListener);
+    BIND_PACKET_RECV(NetworkSystem::RecvPacketListener);
+    BIND_PACKET_SEND(NetworkSystem::SendPacketListener);
 }
 
 void NetworkSystem::StartServer(unsigned short port)
 {
+    mIsServer = true;
     mPort = port;
     mSocket.bind(mPort);
     mSocket.setBlocking(false);
@@ -35,33 +39,44 @@ void NetworkSystem::StartClient(unsigned short port)
     }
     mSocket.setBlocking(false);
     // say hello to server
-    sf::Packet packet;
+    Packet packet;
     packet << 1 << mClientPort;
     mSocket.send(packet, sf::IpAddress::LocalHost, port);
     mListenThread = std::thread(&NetworkSystem::Listen, this);
 }
 
-void NetworkSystem::PacketListener(Event& event)
+void NetworkSystem::SendPacketListener(Event& event)
 {
-    std::cout << "Event recieved" << std::endl;
-    sf::Packet packet =
-        event.GetParam<sf::Packet>(Events::Network::Packet::PACKET);
+    Packet packet = event.GetParam<Packet>(Events::Network::PACKET);
+    // for each port
+    int size = mPorts.Size();
+    for (int i = 0; i < size; i++)
+    {
+        mSocket.send(packet, sf::IpAddress::LocalHost, mPorts[i]);
+    }
+}
+
+void NetworkSystem::RecvPacketListener(Event& event)
+{
+    Packet packet = event.GetParam<Packet>(Events::Network::PACKET);
     std::string message;
     packet >> message;
-    std::cout << message << std::endl;
+    std::cout << "Recieve : " << message << std::endl;
 
     if (mClientPort == 0)
     {
-        sf::Packet packet2;
+        Packet packet2;
         packet2 << "Hello from server";
-        mPacketQueue.Push(packet2);
+        Event event(Events::Network::SEND_PACKET);
+        event.SetParam<Packet>(Events::Network::PACKET, packet2);
+        gCoordinator.SendEvent(event);
     }
 }
 
 void NetworkSystem::ListenServer()
 {
     unsigned short port;
-    std::cout << "Listening on port " << mPort << std::endl;
+    std::cout << "Server started on " << mPort << std::endl;
     while (1)
     {
         if (mSocket.receive(mPacket, mSender, port) == sf::Socket::Done)
@@ -73,11 +88,8 @@ void NetworkSystem::ListenServer()
                           << std::endl;
             }
 
-            // sleep
-            //     std::this_thread::sleep_for(std::chrono::milliseconds(100000));
-            std::cout << "Packet Recieved" << std::endl;
             Event event(Events::Network::PACKET_RECEIVED);
-            event.SetParam(Events::Network::Packet::PACKET, mPacket);
+            event.SetParam(Events::Network::PACKET, mPacket);
             gCoordinator.SendEvent(event);
         }
     }
@@ -85,14 +97,13 @@ void NetworkSystem::ListenServer()
 
 void NetworkSystem::Listen()
 {
-    std::cout << "Listening on port " << mClientPort << std::endl;
+    std::cout << "Connected to Server on port " << mClientPort << std::endl;
     while (1)
     {
         if (mSocket.receive(mPacket, mSender, mClientPort) == sf::Socket::Done)
         {
-            std::cout << "Packet Recieved" << std::endl;
             Event event(Events::Network::PACKET_RECEIVED);
-            event.SetParam(Events::Network::Packet::PACKET, mPacket);
+            event.SetParam(Events::Network::PACKET, mPacket);
             gCoordinator.SendEvent(event);
         }
     }
@@ -100,14 +111,20 @@ void NetworkSystem::Listen()
 
 void NetworkSystem::Update(float dt)
 {
-    // send all packets to all ports
-    while (!mPacketQueue.Empty())
+    if (mIsServer)
     {
-        sf::Packet packet = mPacketQueue.Pop();
-        for (int i = 0; i < mPorts.Size(); i++)
+        for (auto entity : mEntities)
         {
-            std::cout << "Sending packet to port " << mPorts[i] << std::endl;
-            mSocket.send(packet, sf::IpAddress::LocalHost, mPorts[i]);
+            auto& status = gCoordinator.GetComponent<StatusComponent>(entity);
+            if (status.active)
+            {
+                auto& network =
+                    gCoordinator.GetComponent<NetworkComponent>(entity);
+                if (network.Update)
+                {
+                    network.Update();
+                }
+            }
         }
     }
 }

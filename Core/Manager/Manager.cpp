@@ -3,6 +3,8 @@
 #include <iostream>
 #include <memory>
 
+using namespace drasil;
+
 template <>
 void Manager<sf::Font>::add(const std::string& key, const std::string& path)
 {

@@ -4,10 +4,14 @@ Engine
 [ ] Replace bitset Input
 [ ] Sound System # Event / Simple Singleton ? is system really necessary
 [ ] 3D Actor - Need OpenGL Context -> rework Render :(
+[X] Change Render by IRender in coordinator
+[X] Change network by INetwork in coordinator
+[ ] Add Drasil Namespace to engine
 
 Network
-[ ] Network System \_o_/
-[ ] Handle start Server/client
+[X] Network System \_o_/
+[X] Handle start Server/client
+[ ] Lifecycle Network
 [ ] cfg network
 
 Game

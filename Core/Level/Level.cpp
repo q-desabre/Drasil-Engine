@@ -2,9 +2,11 @@
 #include "Level.hpp"
 #include "Coordinator.hpp"
 
+using namespace drasil;
+
 Level::Level()
 {
-    mSignature.set(gCoordinator.GetComponentType<Active>());
+    mSignature.set(gCoordinator.GetComponentType<StatusComponent>());
 }
 
 Level::~Level() {}
@@ -13,8 +15,8 @@ void Level::Deactivate()
 {
     for (auto& entity : mEntities)
     {
-        auto& active = gCoordinator.GetComponent<Active>(entity);
-        active.status = false;
+        auto& status = gCoordinator.GetComponent<StatusComponent>(entity);
+        status.active = false;
     }
 }
 
@@ -22,8 +24,8 @@ void Level::Activate()
 {
     for (auto& entity : mEntities)
     {
-        auto& active = gCoordinator.GetComponent<Active>(entity);
-        active.status = true;
+        auto& status = gCoordinator.GetComponent<StatusComponent>(entity);
+        status.active = true;
     }
 }
 
