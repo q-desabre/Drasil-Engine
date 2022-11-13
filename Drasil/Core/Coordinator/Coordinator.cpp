@@ -57,7 +57,7 @@ void Coordinator::RegisterComponents()
 {
     RegisterComponent<GravityComponent>();
     RegisterComponent<StatusComponent>();
-    RegisterComponent<RigidBodyComponent>();
+    RegisterComponent<MovementComponent>();
     RegisterComponent<TransformComponent>();
     RegisterComponent<InputComponent>();
     RegisterComponent<RenderComponent>();

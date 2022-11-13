@@ -13,7 +13,7 @@
 
 namespace drasil
 {
-    class IRenderSystem;
+    class ARenderSystem;
 
     class Coordinator
     {
@@ -62,7 +62,7 @@ namespace drasil
         std::unique_ptr<EventManager> mEventManager;
         std::unique_ptr<SystemManager> mSystemManager;
         // Core Systems
-        std::shared_ptr<IRenderSystem> mRenderSystem;
+        std::shared_ptr<ARenderSystem> mRenderSystem;
         std::shared_ptr<INetworkSystem> mNetworkSystem;
 
         // Template Methods
@@ -129,3 +129,5 @@ namespace drasil
 }
 
 #define gCoordinator drasil::Coordinator::GetInstance()
+#define GET_COMPONENT(entity, component) \
+    gCoordinator.GetComponent<component>(entity)

@@ -6,7 +6,21 @@ set(CMAKE_CXX_STANDARD 20)
 project(drasil)
 
 # make shared library named drasil
+# list flag of add_library
+# SHARED: build a shared library
+# MODULE: build a module
+# STATIC: build a static library
+# OBJECT: build an object library
 add_library(drasil SHARED)
+set_property(TARGET drasil PROPERTY ENABLE_EXPORTS ON)
+
+# keep typeid revelant outside lib boundary
+# target_compile_definitions(drasil PUBLIC -D_GLIBCXX_USE_CXX11_ABI=0)
+target_compile_definitions(drasil PRIVATE DLL_EXPORT)
+
+# add sfml
+find_package(SFML 2.5 COMPONENTS graphics audio network REQUIRED)
+target_link_libraries(drasil PUBLIC sfml-graphics sfml-audio sfml-network)
 
 # set variable for source files of Core/ as *.cpp
 file(GLOB_RECURSE CORE_SRC "Core/*.cpp")
@@ -51,10 +65,6 @@ target_sources(drasil PRIVATE ${CORE_SRC} ${SYSTEM_SRC} ${GAME_SRC})
 
 # target_include_directories(drasil
 # PUBLIC "Tools" "Interface")
-
-# add sfml
-find_package(SFML 2.5 COMPONENTS graphics audio network REQUIRED)
-target_link_libraries(drasil sfml-graphics sfml-audio sfml-network)
 
 # copy binary to bin folder
 add_custom_command(TARGET drasil POST_BUILD

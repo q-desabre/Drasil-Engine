@@ -6,7 +6,19 @@ project(sample)
 
 add_executable(sample main.cpp)
 
-target_include_directories(sample PUBLIC ../)
+# set variable for source files of Core/ as *.cpp
+file(GLOB_RECURSE GAME_SRC "Game/*.cpp")
+
+target_sources(sample PRIVATE ${GAME_SRC})
+
+target_include_directories(sample PUBLIC
+    "../"
+    "Client/"
+    "Game/"
+    "Game/Parallax"
+    "Game/Player"
+    "Server"
+)
 
 add_library(drasil SHARED IMPORTED)
 set_target_properties(drasil PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/build/libdrasil.dll)

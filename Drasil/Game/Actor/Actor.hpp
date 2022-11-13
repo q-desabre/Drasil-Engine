@@ -1,8 +1,8 @@
 
 #pragma once
 
-#include "../Components.hpp"
-#include "../Core.hpp"
+#include "../../Components.hpp"
+#include "../../Core.hpp"
 
 namespace drasil
 {
@@ -13,6 +13,8 @@ namespace drasil
         ~Actor();
 
         Entity GetID() const;
+        bool IsActive() const;
+        void SetActive(bool active);
 
     protected:
         Entity mID;

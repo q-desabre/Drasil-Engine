@@ -1,7 +1,7 @@
 
 #include "Player.hpp"
-#include "../Core.hpp"
-#include "../Tools.hpp"
+#include "../../Core.hpp"
+#include "../../Tools.hpp"
 
 using namespace drasil;
 
@@ -10,7 +10,7 @@ Player::Player()
     std::cout << "Player created with id " << mID << std::endl;
     gCoordinator.AddComponent(mID, InputComponent{});
 
-    gCoordinator.AddComponent(mID, RenderComponent{.texture = "Img_Test"});
+    SetTexture("Img_Test");
 
     gCoordinator.AddComponent(
         mID,
@@ -20,8 +20,6 @@ Player::Player()
                                                std::placeholders::_1),
                          .Destroy = std::bind(&Player::DestroyNetwork, this)});
 
-    auto& render = gCoordinator.GetComponent<RenderComponent>(mID);
-    render.sprite.setTexture(Textures.get(render.texture));
     //  CreateNetwork();
 
     auto& network = gCoordinator.GetComponent<NetworkComponent>(mID);

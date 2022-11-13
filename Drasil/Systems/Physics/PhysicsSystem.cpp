@@ -6,8 +6,7 @@ using namespace drasil;
 void PhysicsSystem::InitSignature()
 {
     Signature signature;
-    signature.set(gCoordinator.GetComponentType<GravityComponent>());
-    signature.set(gCoordinator.GetComponentType<RigidBodyComponent>());
+    signature.set(gCoordinator.GetComponentType<MovementComponent>());
     signature.set(gCoordinator.GetComponentType<TransformComponent>());
     signature.set(gCoordinator.GetComponentType<StatusComponent>());
     gCoordinator.SetSystemSignature<PhysicsSystem>(signature);
@@ -27,16 +26,13 @@ void PhysicsSystem::Update(float dt)
 
         if (status.active)
         {
-            auto& rigidBody =
-                gCoordinator.GetComponent<RigidBodyComponent>(entity);
+            auto& Movement =
+                gCoordinator.GetComponent<MovementComponent>(entity);
             auto& transform =
                 gCoordinator.GetComponent<TransformComponent>(entity);
-            // Forces
-            auto const& gravity =
-                gCoordinator.GetComponent<GravityComponent>(entity);
 
-            rigidBody.velocity += rigidBody.acceleration * dt;
-            transform.position += rigidBody.velocity * dt;
+            Movement.velocity += Movement.acceleration * dt;
+            transform.position += Movement.velocity * dt;
         }
     }
 }

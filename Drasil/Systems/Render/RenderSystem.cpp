@@ -16,27 +16,64 @@ void RenderSystem::InitSignature()
     gCoordinator.SetSystemSignature<RenderSystem>(signature);
 }
 
+void RenderSystem::UpdateMouseEvent()
+{
+    // check if mEvent is mouseMoved
+    if (mEvent.type == sf::Event::MouseMoved)
+    {
+        mMouseEvent.action = MouseEvent::Action::MOVE;
+        mMouseEvent.prevX = mMouseEvent.x;
+        mMouseEvent.prevY = mMouseEvent.y;
+        mMouseEvent.x = sf::Mouse::getPosition(mWindow).x;
+        mMouseEvent.y = sf::Mouse::getPosition(mWindow).y;
+        SendMouseEvent();
+    }
+    else if (mEvent.type == sf::Event::MouseButtonPressed)
+    {
+        mMouseEvent.action = (MouseEvent::Action)MouseEvent::Action::PRESS;
+        mMouseEvent.button = (MouseEvent::Button)mEvent.mouseButton.button;
+        SendMouseEvent();
+    }
+    else if (mEvent.type == sf::Event::MouseButtonReleased)
+    {
+        mMouseEvent.action = (MouseEvent::Action)MouseEvent::Action::RELEASE;
+        mMouseEvent.button = (MouseEvent::Button)mEvent.mouseButton.button;
+        SendMouseEvent();
+    }
+}
+
+void RenderSystem::UpdateKeyboardEvent()
+{
+    if (mEvent.type == sf::Event::KeyPressed)
+    {
+        mKeyboardEvent.action =
+            (KeyboardEvent::Action)KeyboardEvent::Action::PRESS;
+        mKeyboardEvent.key = (KeyboardEvent::Key)mEvent.key.code;
+        SendKeyboardEvent();
+    }
+    else if (mEvent.type == sf::Event::KeyReleased)
+    {
+        mKeyboardEvent.action =
+            (KeyboardEvent::Action)KeyboardEvent::Action::RELEASE;
+        mKeyboardEvent.key = (KeyboardEvent::Key)mEvent.key.code;
+        SendKeyboardEvent();
+    }
+}
+
 void RenderSystem::ProcessEvents()
 {
     sf::Event event;
 
-    while (mWindow.pollEvent(event))
+    while (mWindow.pollEvent(mEvent))
     {
-        if (event.type == sf::Event::Closed)
+        // check Mouse Event
+        UpdateMouseEvent();
+        UpdateKeyboardEvent();
+        if (mEvent.type == sf::Event::Closed)
         {
             gCoordinator.SendEvent(Events::Window::QUIT);
             mWindow.close();
             break;
-        }
-        if (event.type == sf::Event::KeyPressed)
-        {
-            if (event.key.code == sf::Keyboard::Enter)
-            {
-                std::cout << "Enter pressed" << std::endl;
-                Event event(Events::Window::INPUT);
-                event.SetParam(Events::Window::Input::INPUT, 14);
-                gCoordinator.SendEvent(event);
-            }
         }
     }
 }

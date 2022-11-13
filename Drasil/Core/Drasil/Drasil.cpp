@@ -34,6 +34,10 @@ void Drasil::Start()
         // cap to 60 fps
         if (mDelta > 1.0f / 60.0f)
         {
+            Event event(Events::Game::TICK);
+            event.SetParam(Events::Game::DELTA, mDelta);
+            gCoordinator.SendEvent(event);
+
             start = std::chrono::high_resolution_clock::now();
             gCoordinator.UpdateSystems(mDelta);
         }

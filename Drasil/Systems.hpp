@@ -6,5 +6,5 @@
 #include "Systems/Network/Packet.hpp"
 #include "Systems/Physics/PhysicsSystem.hpp"
 #include "Systems/PlayerController/PlayerControlSystem.hpp"
-#include "Systems/Render/IRenderSystem.hpp"
+#include "Systems/Render/ARenderSystem.hpp"
 #include "Systems/Render/RenderSystem.hpp"

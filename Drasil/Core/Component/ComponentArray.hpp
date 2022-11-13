@@ -2,6 +2,7 @@
 
 #include <array>
 #include <cassert>
+#include <iostream>
 #include <unordered_map>
 #include "../../Types.hpp"
 
@@ -56,6 +57,7 @@ namespace drasil
 
         T& GetData(Entity entity)
         {
+            // std::cout << "Get Data" << entity << std::endl;
             assert(mEntityToIndexMap.find(entity) != mEntityToIndexMap.end() &&
                    "Retrieving non-existent component.");
 

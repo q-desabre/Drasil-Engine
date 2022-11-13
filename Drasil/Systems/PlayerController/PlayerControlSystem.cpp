@@ -12,7 +12,7 @@ void PlayerControlSystem::InitSignature()
     gCoordinator.SetSystemSignature<PlayerControlSystem>(signature);
 
     gCoordinator.AddEventListener(METHOD_LISTENER(
-        Events::Window::INPUT, PlayerControlSystem::InputListener));
+        Events::Input::KEYBOARD, PlayerControlSystem::InputListener));
 }
 
 void PlayerControlSystem::Update(float dt)
@@ -57,7 +57,7 @@ void PlayerControlSystem::Update(float dt)
 
 void PlayerControlSystem::InputListener(Event& event)
 {
-    mButtons = event.GetParam<int>(Events::Window::Input::INPUT);
-    std::cout << "InputListener" << std::endl;
-    std::cout << mButtons << std::endl;
+    // mButtons = event.GetParam<int>(Events::Input::KEY);
+    // std::cout << "InputListener" << std::endl;
+    // std::cout << mButtons << std::endl;
 }

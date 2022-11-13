@@ -75,6 +75,21 @@
         "xstddef": "cpp",
         "xtr1common": "cpp",
         "xtree": "cpp",
-        "xutility": "cpp"
-    }
+        "xutility": "cpp",
+        "condition_variable": "cpp",
+        "cstdarg": "cpp",
+        "cwctype": "cpp",
+        "fstream": "cpp",
+        "numbers": "cpp",
+        "numeric": "cpp",
+        "semaphore": "cpp",
+        "shared_mutex": "cpp",
+        "unordered_set": "cpp",
+        "*.tcc": "cpp",
+        "memory_resource": "cpp",
+        "string_view": "cpp",
+        "cinttypes": "cpp",
+        "codecvt": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }

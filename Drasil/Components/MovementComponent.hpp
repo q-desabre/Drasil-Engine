@@ -4,7 +4,7 @@
 
 namespace drasil
 {
-    struct RigidBodyComponent
+    struct MovementComponent
     {
         Vec3 velocity;
         Vec3 acceleration;

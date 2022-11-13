@@ -6,7 +6,6 @@
 
 namespace drasil
 {
-
     template <typename T>
     class SafeVector
     {
