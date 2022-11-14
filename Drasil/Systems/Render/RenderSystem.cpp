@@ -103,9 +103,18 @@ void RenderSystem::Update(float dt)
             auto& transform =
                 gCoordinator.GetComponent<TransformComponent>(entity);
             auto& render = gCoordinator.GetComponent<RenderComponent>(entity);
-            render.sprite.setPosition(transform.position.x,
-                                      transform.position.y);
-            mWindow.draw(render.sprite);
+            if (render.textString != "")
+            {
+                render.text.setPosition(transform.position.x,
+                                        transform.position.y);
+                mWindow.draw(render.text);
+            }
+            else if (render.texture != "")
+            {
+                render.sprite.setPosition(transform.position.x,
+                                          transform.position.y);
+                mWindow.draw(render.sprite);
+            }
         }
 
         // auto& renderable = gCoordinator.GetComponent<Renderable>(entity);

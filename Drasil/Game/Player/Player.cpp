@@ -59,8 +59,10 @@ void Player::UpdateNetwork()
 
 void Player::OnUpdateNetwork(Event& e)
 {
-    Packet packet = e.GetParam<Packet>(Events::Network::PACKET);
     std::cout << "Recieve update packed player" << std::endl;
+
+    Packet packet = e.GetParam<Packet>(Events::Network::PACKET);
+   // int type << packet;
 }
 
 void Player::DestroyNetwork()

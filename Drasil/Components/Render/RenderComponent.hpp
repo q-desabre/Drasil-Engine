@@ -10,5 +10,7 @@ namespace drasil
     {
         std::string texture;
         sf::Sprite sprite;
+        sf::Text text;
+        std::string textString;
     };
 }
