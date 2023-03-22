@@ -70,4 +70,4 @@ target_sources(drasil PRIVATE ${CORE_SRC} ${SYSTEM_SRC} ${GAME_SRC})
 add_custom_command(TARGET drasil POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy
     $<TARGET_FILE:drasil>
-    ../../SampleGame/build)
+    ../../Nexus/build)

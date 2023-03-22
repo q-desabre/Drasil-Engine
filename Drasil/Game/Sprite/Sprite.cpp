@@ -10,7 +10,10 @@ Sprite::Sprite()
     gCoordinator.AddComponent(mID, TransformComponent{.position = Vec3(0, 0, 0),
                                                       .rotation = Vec3(0, 0, 0),
                                                       .scale = Vec3(1, 1, 1)});
-    std::cout << "Sprite created " << mID << std::endl;
+    gCoordinator.AddComponent(mID, RenderComponent());
+    auto& render = GET_COMPONENT(mID, RenderComponent);
+    render.meta.isModified = true;
+    render.meta.type = RenderType::TEXTURE;
 }
 
 Sprite::Sprite(const std::string& texture)
@@ -19,16 +22,16 @@ Sprite::Sprite(const std::string& texture)
     gCoordinator.AddComponent(mID, TransformComponent{.position = Vec3(0, 0, 0),
                                                       .rotation = Vec3(0, 0, 0),
                                                       .scale = Vec3(1, 1, 1)});
-
+    gCoordinator.AddComponent(mID, RenderComponent());
     SetTexture(texture);
-    std::cout << "Sprite created " << mID << std::endl;
 }
 
 void Sprite::SetTexture(const std::string& texture)
 {
-    gCoordinator.AddComponent(mID, RenderComponent{.texture = texture});
     auto& render = GET_COMPONENT(mID, RenderComponent);
-    render.sprite.setTexture(Textures.get(render.texture));
+    render.meta.isModified = true;
+    render.meta.type = RenderType::TEXTURE;
+    render.data = TextureComponent{.path = texture};
 }
 
 const Vec3& Sprite::GetPosition() const
@@ -52,6 +55,5 @@ void Sprite::SetPosition(float x, float y, float z)
 const Vec2 Sprite::GetSize() const
 {
     auto& render = GET_COMPONENT(mID, RenderComponent);
-    return Vec2(render.sprite.getTextureRect().width,
-                render.sprite.getTextureRect().height);
+    return std::get<TextureComponent>(render.data).size;
 }

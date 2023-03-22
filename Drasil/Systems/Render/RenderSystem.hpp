@@ -11,6 +11,7 @@ namespace drasil
     class RenderSystem : public ARenderSystem
     {
     public:
+        ~RenderSystem() {}
         void InitSignature();
         void InitRender(const std::string& windowName,
                         const Vec2& windowSize,
@@ -27,6 +28,12 @@ namespace drasil
     private:
         sf::Event mEvent;
         sf::RenderWindow mWindow;
+        std::map<Entity, sf::Sprite> mSprites;
+        std::map<Entity, sf::Text> mTexts;
+        // Managers
+        Manager<sf::Texture> mTextures;
+        Manager<sf::Font> mFonts;
+        Manager<sf::SoundBuffer> mSounds;
     };
 
     // No use since enum are in same order but usueful for other libs ?

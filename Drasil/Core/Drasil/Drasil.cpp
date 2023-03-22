@@ -4,24 +4,20 @@
 
 using namespace drasil;
 
-Drasil::Drasil()
-{
-    gCoordinator.InitWithoutRender();
-}
+Drasil::Drasil() {}
 
 Drasil::Drasil(const std::string& name,
                const Vec2& winSize,
                const std::string& assetsPath)
 {
     gCoordinator.Init(name, winSize, assetsPath);
-
     gCoordinator.AddEventListener(
         METHOD_LISTENER(Events::Window::QUIT, Drasil::Stop));
 }
 
 Drasil::~Drasil()
 {
-    Textures.getInstance(true);
+    // Textures.getInstance(true);
 }
 
 void Drasil::Start()

@@ -1,6 +1,7 @@
 
 #include "Player.hpp"
 #include "../../Core.hpp"
+#include "../../Systems/Network/Packet.hpp"
 #include "../../Tools.hpp"
 
 using namespace drasil;
@@ -62,7 +63,7 @@ void Player::OnUpdateNetwork(Event& e)
     std::cout << "Recieve update packed player" << std::endl;
 
     Packet packet = e.GetParam<Packet>(Events::Network::PACKET);
-   // int type << packet;
+    // int type << packet;
 }
 
 void Player::DestroyNetwork()

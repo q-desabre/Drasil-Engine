@@ -15,7 +15,7 @@ namespace drasil
 
         const Vec3& GetPosition() const;
         void SetPosition(const Vec3& pos);
-        void SetPosition(float x, float y, float z);
+        void SetPosition(float x, float y, float z = 0);
 
         const Vec2 GetSize() const;
     };

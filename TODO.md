@@ -1,3 +1,10 @@
+Dynamic Loading
+[ ] Interface Game
+[ ] Interface Graphic
+[ ] Rework Render Component
+[ ] Load a Simple Level
+[X] Dynamic Loader
+
 Engine
 [ ] Animated Sprite
 [ ] Add Draw Priority ( use Z axis ? by sorting mEntities in RenderSystem)

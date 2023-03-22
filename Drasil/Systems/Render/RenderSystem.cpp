@@ -86,6 +86,7 @@ void RenderSystem::InitRender(const std::string& windowName,
     if (assetsPath.size() > 0)
     {
         InitRessources(assetsPath);
+        std::cout << "Ressources loaded" << std::endl;
     }
 }
 
@@ -103,17 +104,45 @@ void RenderSystem::Update(float dt)
             auto& transform =
                 gCoordinator.GetComponent<TransformComponent>(entity);
             auto& render = gCoordinator.GetComponent<RenderComponent>(entity);
-            if (render.textString != "")
+            if (render.meta.isModified)
             {
-                render.text.setPosition(transform.position.x,
-                                        transform.position.y);
-                mWindow.draw(render.text);
+                if (render.meta.type == RenderType::TEXTURE)
+                {
+                    if (mSprites.find(entity) == mSprites.end())
+                        mSprites[entity] = sf::Sprite();
+                    mSprites[entity].setTexture(mTextures.get(
+                        std::get<TextureComponent>(render.data).path));
+                    mSprites[entity].setPosition(transform.position.x,
+                                                 transform.position.y);
+                    mSprites[entity].setScale(transform.scale.x,
+                                              transform.scale.y);
+                    // mSprites[entity].setRotation(transform.rotation);
+                }
+                else if (render.meta.type == RenderType::TEXT)
+                {
+                    if (mTexts.find(entity) == mTexts.end())
+                        mTexts[entity] = sf::Text();
+                    mTexts[entity].setString(
+                        std::get<TextComponent>(render.data).string);
+                    mTexts[entity].setFont(
+                        mFonts.get(std::get<TextComponent>(render.data).font));
+                    // mTexts[entity].setCharacterSize(
+                    //     std::get<TextComponent>(render.data).size);
+                    mTexts[entity].setPosition(transform.position.x,
+                                               transform.position.y);
+                    mTexts[entity].setScale(transform.scale.x,
+                                            transform.scale.y);
+                    // mTexts[entity].setRotation(transform.rotation);
+                }
             }
-            else if (render.texture != "")
+
+            if (render.meta.type == RenderType::TEXTURE)
             {
-                render.sprite.setPosition(transform.position.x,
-                                          transform.position.y);
-                mWindow.draw(render.sprite);
+                mWindow.draw(mSprites[entity]);
+            }
+            else if (render.meta.type == RenderType::TEXT)
+            {
+                mWindow.draw(mTexts[entity]);
             }
         }
 
@@ -140,9 +169,9 @@ void RenderSystem::InitRessources(const std::string& path)
                 name += entry.path().filename().string();
                 // remove 4 last character
                 name.erase(name.size() - 4, 4);
-                // std::cout << "Texture add " << name << " at " << entry.path()
-                //           << std::endl;
-                Textures.add(name, entry.path().string());
+                std::cout << "Texture add " << name << " at " << entry.path()
+                          << std::endl;
+                mTextures.add(name, entry.path().string());
             }
             else if (entry.path().extension() == ".ttf")
             {
@@ -151,7 +180,7 @@ void RenderSystem::InitRessources(const std::string& path)
                 name.erase(name.size() - 4, 4);
                 std::cout << "Font add " << name << " at "
                           << entry.path().string() << std::endl;
-                Fonts.add(name, entry.path().string());
+                mFonts.add(name, entry.path().string());
             }  // ".wav"
             else if (entry.path().extension() == ".wav")
             {
@@ -160,7 +189,7 @@ void RenderSystem::InitRessources(const std::string& path)
                 name.erase(name.size() - 4, 4);
                 std::cout << "Sound add " << name << " at "
                           << entry.path().string() << std::endl;
-                Sounds.add(name, entry.path().string());
+                mSounds.add(name, entry.path().string());
             }
         }
     }

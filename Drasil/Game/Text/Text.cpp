@@ -3,45 +3,46 @@
 
 using namespace drasil;
 
-Text::Text(Level& l)
+Text::Text()
 {
-    l.AddEntity(mID);
-    std::cout << "Text created " << mID << std::endl;
     gCoordinator.AddComponent(mID, TransformComponent{.position = Vec3(0, 0, 0),
                                                       .rotation = Vec3(0, 0, 0),
                                                       .scale = Vec3(1, 1, 1)});
-    gCoordinator.AddComponent(mID, RenderComponent{});
+    gCoordinator.AddComponent(mID, RenderComponent());
     auto& render = GET_COMPONENT(mID, RenderComponent);
-    render.text.setFont(Fonts.get("Arcade"));
-    render.text.setCharacterSize(24);
+    render.meta.isModified = true;
+    render.meta.type = RenderType::TEXT;
+    render.data = TextComponent{.string = "Hello World",
+                                .font = "Arcade",
+                                .color = Vec4(255, 255, 255, 255)};
 }
 
-Text::Text(Level& l, const std::string& text)
+Text::Text(const std::string& text)
 {
-    l.AddEntity(mID);
-    std::cout << "Text created " << mID << std::endl;
     gCoordinator.AddComponent(mID,
                               TransformComponent{.position = Vec3(500, 500, 0),
                                                  .rotation = Vec3(0, 0, 0),
                                                  .scale = Vec3(1, 1, 1)});
-    gCoordinator.AddComponent(mID, RenderComponent{.textString = text});
+    gCoordinator.AddComponent(mID, RenderComponent());
     auto& render = GET_COMPONENT(mID, RenderComponent);
-    render.text.setFont(Fonts.get("Arcade"));
-    render.text.setCharacterSize(24);
-    // set color to yellow
-    SetText(text);
+    render.meta.isModified = true;
+    render.meta.type = RenderType::TEXT;
+    render.data = TextComponent{
+        .string = text, .font = "Arcade", .color = Vec4(255, 255, 255, 255)};
 }
 
 void Text::SetText(const std::string& text)
 {
     auto& render = GET_COMPONENT(mID, RenderComponent);
-    render.text.setString(text);
+    render.meta.isModified = true;
+    std::get<TextComponent>(render.data).string = text;
 }
 
-void Text::SetFont(const std::string& path)
+void Text::SetFont(const std::string& fontName)
 {
     auto& render = GET_COMPONENT(mID, RenderComponent);
-    render.text.setFont(Fonts.get("Arcade"));
+    render.meta.isModified = true;
+    std::get<TextComponent>(render.data).font = fontName;
 }
 
 void Text::SetPosition(const Vec3& pos)
@@ -62,5 +63,6 @@ void Text::SetColor(unsigned char r,
                     unsigned char a)
 {
     auto& render = GET_COMPONENT(mID, RenderComponent);
-    render.text.setFillColor(sf::Color(r, g, b, a));
+    render.meta.isModified = true;
+    std::get<TextComponent>(render.data).color = Vec4(r, g, b, a);
 }
