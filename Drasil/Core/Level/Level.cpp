@@ -1,5 +1,5 @@
 
-#include "../../Core.hpp"
+#include "../../Drasil.hpp"
 
 using namespace drasil;
 
@@ -31,8 +31,6 @@ void Level::Activate()
 void Level::AddEntity(Entity entity)
 {
     GET_COMPONENT(entity, StatusComponent).active = true;
-    std::cout << "Added entity " << entity << " to level " << std::endl;
-    // check signature
     auto entitySignature = gCoordinator.GetSignature(entity);
     if ((entitySignature & mSignature) == mSignature)
     {

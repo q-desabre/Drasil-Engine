@@ -2,27 +2,35 @@ cmake_minimum_required(VERSION 3.14)
 
 set(CMAKE_CXX_STANDARD 20)
 
-project(Nexus)
+project(Menu)
 
-add_executable(nexus main.cpp)
-
-# find_package(dlfcn-win32 REQUIRED)
-# target_link_libraries(nexus dlfcn-win32::dl)
+add_library(menu SHARED)
+target_sources(menu PRIVATE Menu.cpp)
 
 # set variable for source files of Core/ as *.cpp
 # file(GLOB_RECURSE GAME_SRC "Game/*.cpp")
 
 # target_sources(nexus PRIVATE ${GAME_SRC})
-target_include_directories(nexus PUBLIC
-    "../"
+target_include_directories(menu PUBLIC
+    "../../"
+
+    # "Client/"
+    # "Game/"
+    # "Game/Parallax"
+    # "Game/Player"
+    # "Server"
 )
 add_library(drasil SHARED IMPORTED)
 set_target_properties(drasil PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/build/libdrasil.dll)
 set_target_properties(drasil PROPERTIES IMPORTED_IMPLIB ${CMAKE_CURRENT_SOURCE_DIR}/build/libdrasil.dll)
 
-target_link_libraries(nexus drasil)
+target_link_libraries(menu drasil)
 
 # add_custom_command(TARGET nexus POST_BUILD
 # COMMAND ${CMAKE_COMMAND} -E copy
 # $<TARGET_FILE:nexus>
 # ../../)
+add_custom_command(TARGET menu POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+    $<TARGET_FILE:menu>
+    ../../../Nexus/build)

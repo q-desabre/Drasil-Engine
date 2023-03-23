@@ -3,7 +3,7 @@
 
 #include <SFML/Network.hpp>
 #include <thread>
-#include "../../Core.hpp"
+#include "../../Drasil.hpp"
 #include "../../Tools/SafeVector.hpp"
 #include "INetworkSystem.hpp"
 #include "Packet.hpp"

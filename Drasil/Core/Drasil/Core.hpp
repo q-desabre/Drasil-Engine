@@ -14,15 +14,15 @@
 namespace drasil
 {
 
-    class Drasil
+    class Core
     {
     public:
-        Drasil();
-        Drasil(const std::string& name,
-               const Vec2& winSize,
-               const std::string& assetsPath = "");
+        Core();
+        Core(const std::string& name,
+             const Vec2& winSize,
+             const std::string& assetsPath = "");
 
-        ~Drasil();
+        ~Core();
 
         void PushLevel(std::shared_ptr<Level> Level);
         void PopLevel();

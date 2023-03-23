@@ -2,8 +2,11 @@
 #include "Coordinator.hpp"
 #include "../../Components.hpp"
 #include "../../Systems.hpp"
+#include "../../Tools.hpp"
 
 using namespace drasil;
+
+typedef std::shared_ptr<ARenderSystem> (*CreateRenderSystemFunc)();
 
 Coordinator& Coordinator::GetInstance()
 {
@@ -17,6 +20,16 @@ void Coordinator::Init(const std::string& windowName,
 {
     RegisterComponents();
     RegisterSystems();
-    mRenderSystem = RegisterSystem<RenderSystem>();
+
+    mDynamicLoader.Open("libsfmlRender.dll");
+    auto f = mDynamicLoader.GetFunction<CreateRenderSystemFunc>(
+        "CreateRenderSystem");
+    mRenderSystem = f();
+    mSystemManager->RegisterSystemManual(mRenderSystem);
+    mRenderSystem->InitSignature();
     mRenderSystem->InitRender(windowName, windowSize, assetsPath);
+
+    
+
+    LogManager::Print(Events::Logs::Type::ENGINE, "Coordinator initialized");
 }

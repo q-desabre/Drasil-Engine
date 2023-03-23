@@ -1,0 +1,1 @@
+cd Games/Menu/build ; cmake .. -G "Unix Makefiles" ; make

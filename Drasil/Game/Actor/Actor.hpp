@@ -2,7 +2,7 @@
 #pragma once
 
 #include "../../Components.hpp"
-#include "../../Core.hpp"
+#include "../../Drasil.hpp"
 
 namespace drasil
 {

@@ -1,22 +1,23 @@
 
-#include "RenderSystem.hpp"
+#include "SfmlRenderSystem.hpp"
 #include <filesystem>
 #include <iostream>
-#include "../../Components.hpp"
-#include "../../Core.hpp"
+#include "Drasil/Components.hpp"
+#include "Drasil/Drasil.hpp"
+#include "Drasil/Tools.hpp"
 
 using namespace drasil;
 
-void RenderSystem::InitSignature()
+void SfmlRenderSystem::InitSignature()
 {
     Signature signature;
     signature.set(gCoordinator.GetComponentType<RenderComponent>());
     signature.set(gCoordinator.GetComponentType<TransformComponent>());
     signature.set(gCoordinator.GetComponentType<StatusComponent>());
-    gCoordinator.SetSystemSignature<RenderSystem>(signature);
+    gCoordinator.SetSystemSignature<ARenderSystem>(signature);
 }
 
-void RenderSystem::UpdateMouseEvent()
+void SfmlRenderSystem::UpdateMouseEvent()
 {
     // check if mEvent is mouseMoved
     if (mEvent.type == sf::Event::MouseMoved)
@@ -42,7 +43,7 @@ void RenderSystem::UpdateMouseEvent()
     }
 }
 
-void RenderSystem::UpdateKeyboardEvent()
+void SfmlRenderSystem::UpdateKeyboardEvent()
 {
     if (mEvent.type == sf::Event::KeyPressed)
     {
@@ -60,7 +61,7 @@ void RenderSystem::UpdateKeyboardEvent()
     }
 }
 
-void RenderSystem::ProcessEvents()
+void SfmlRenderSystem::ProcessEvents()
 {
     sf::Event event;
 
@@ -78,20 +79,22 @@ void RenderSystem::ProcessEvents()
     }
 }
 
-void RenderSystem::InitRender(const std::string& windowName,
-                              const Vec2& windowSize,
-                              const std::string& assetsPath)
+void SfmlRenderSystem::InitRender(const std::string& windowName,
+                                  const Vec2& windowSize,
+                                  const std::string& assetsPath)
 {
     mWindow.create(sf::VideoMode(windowSize.x, windowSize.y), windowName);
     if (assetsPath.size() > 0)
     {
         InitRessources(assetsPath);
-        std::cout << "Ressources loaded" << std::endl;
+        LogManager::Print(Events::Logs::Type::ENGINE, "Ressources initialized");
     }
 }
 
-void RenderSystem::Update(float dt)
+void SfmlRenderSystem::Update(float dt)
 {
+    std::cout << "RenderSystem Update" << std::endl;
+    std::cout << "Entities: " << mEntities.size() << std::endl;
     mWindow.clear();
     if (mEntities.size() == 0)
         return;
@@ -145,16 +148,12 @@ void RenderSystem::Update(float dt)
                 mWindow.draw(mTexts[entity]);
             }
         }
-
-        // auto& renderable = gCoordinator.GetComponent<Renderable>(entity);
-        // mWindow.draw(renderable.mSprite);
     }
     mWindow.display();
 }
 
-void RenderSystem::InitRessources(const std::string& path)
+void SfmlRenderSystem::InitRessources(const std::string& path)
 {
-    // iterator over file
     for (const auto& entry : std::filesystem::directory_iterator(path))
     {
         if (std::filesystem::is_directory(entry.path()))
@@ -167,28 +166,19 @@ void RenderSystem::InitRessources(const std::string& path)
                 name += entry.path().parent_path().filename().string();
                 name += "_";
                 name += entry.path().filename().string();
-                // remove 4 last character
                 name.erase(name.size() - 4, 4);
-                std::cout << "Texture add " << name << " at " << entry.path()
-                          << std::endl;
                 mTextures.add(name, entry.path().string());
             }
             else if (entry.path().extension() == ".ttf")
             {
                 name += entry.path().filename().string();
-                // remove 4 last character
                 name.erase(name.size() - 4, 4);
-                std::cout << "Font add " << name << " at "
-                          << entry.path().string() << std::endl;
                 mFonts.add(name, entry.path().string());
             }  // ".wav"
             else if (entry.path().extension() == ".wav")
             {
                 name += entry.path().filename().string();
-                // remove 4 last character
                 name.erase(name.size() - 4, 4);
-                std::cout << "Sound add " << name << " at "
-                          << entry.path().string() << std::endl;
                 mSounds.add(name, entry.path().string());
             }
         }

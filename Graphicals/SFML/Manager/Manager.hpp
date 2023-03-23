@@ -8,7 +8,7 @@ class Manager
 {
 public:
     Manager() {}
-    ~Manager() { std::cout << "Manager destroyed" << std::endl; }
+    ~Manager() {}
 
 public:
     static Manager& getInstance(bool destroy = false)

@@ -1,14 +1,19 @@
-#include "Drasil/Core.hpp"
+#include "Drasil/Drasil.hpp"
+#include "Drasil/Tools/DynamicLoader.hpp"
 #include "MyLevel.hpp"
+
+typedef std::shared_ptr<drasil::Level> (*CreateLevelFunc)(void);
 
 int main()
 {
-    std::cout << "Nexus is starting..." << std::endl;
+    drasil::DynamicLoader dl;
 
-    drasil::Drasil drasil("SampleGame", drasil::Vec2(1920, 1080),
-                          "../../Assets");
 
-    std::cout << "Drasil initialized." << std::endl;
-    drasil.PushLevel(std::make_shared<MyLevel>());
+    drasil::Core drasil("SampleGame", drasil::Vec2(1920, 1080), "../../Assets");
+
+    dl.Open("libmenu.dll");
+    auto f = dl.GetFunction<CreateLevelFunc>("CreateLevel");
+    drasil.PushLevel(f());
+
     drasil.Start();
 }

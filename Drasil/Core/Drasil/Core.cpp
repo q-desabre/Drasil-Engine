@@ -1,26 +1,26 @@
 
-#include "Drasil.hpp"
+#include "Core.hpp"
 #include "../../Tools.hpp"
 
 using namespace drasil;
 
-Drasil::Drasil() {}
+Core::Core() {}
 
-Drasil::Drasil(const std::string& name,
-               const Vec2& winSize,
-               const std::string& assetsPath)
+Core::Core(const std::string& name,
+           const Vec2& winSize,
+           const std::string& assetsPath)
 {
     gCoordinator.Init(name, winSize, assetsPath);
     gCoordinator.AddEventListener(
-        METHOD_LISTENER(Events::Window::QUIT, Drasil::Stop));
+        METHOD_LISTENER(Events::Window::QUIT, Core::Stop));
 }
 
-Drasil::~Drasil()
+Core::~Core()
 {
     // Textures.getInstance(true);
 }
 
-void Drasil::Start()
+void Core::Start()
 {
     // loop to 60 fps
 
@@ -45,28 +45,29 @@ void Drasil::Start()
     gCoordinator.PopLevel();
 }
 
-void Drasil::PushLevel(std::shared_ptr<Level> Level)
+void Core::PushLevel(std::shared_ptr<Level> Level)
 {
     gCoordinator.PushLevel(Level);
 }
 
-void Drasil::PopLevel()
+void Core::PopLevel()
 {
     gCoordinator.PopLevel();
 }
 
-void Drasil::Stop(Event& event)
+void Core::Stop(Event& event)
 {
+    LogManager::Print(Events::Logs::Type::ENGINE, "Stopping Drasil...");
     mIsRunning = false;
 }
 
-void Drasil::StartServer(unsigned short port)
+void Core::StartServer(unsigned short port)
 {
     gCoordinator.StartServer(port);
 }
 
 // TODO ADD IP
-void Drasil::StartClient(unsigned short port)
+void Core::StartClient(unsigned short port)
 {
     gCoordinator.StartClient(port);
     Start();

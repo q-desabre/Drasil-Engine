@@ -3,7 +3,7 @@
 
 // ENGINE
 #include "Drasil/Components.hpp"
-#include "Drasil/Core.hpp"
+#include "Drasil/Drasil.hpp"
 #include "Drasil/Game.hpp"
 #include "Drasil/Systems.hpp"
 #include "Drasil/Types.hpp"

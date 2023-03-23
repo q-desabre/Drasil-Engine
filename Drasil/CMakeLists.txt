@@ -14,13 +14,13 @@ project(drasil)
 add_library(drasil SHARED)
 set_property(TARGET drasil PROPERTY ENABLE_EXPORTS ON)
 
-# keep typeid revelant outside lib boundary
-# target_compile_definitions(drasil PUBLIC -D_GLIBCXX_USE_CXX11_ABI=0)
-target_compile_definitions(drasil PRIVATE DLL_EXPORT)
-
 # add sfml
 find_package(SFML 2.5 COMPONENTS graphics audio network REQUIRED)
 target_link_libraries(drasil PUBLIC sfml-graphics sfml-audio sfml-network)
+
+# keep typeid revelant outside lib boundary
+# target_compile_definitions(drasil PUBLIC -D_GLIBCXX_USE_CXX11_ABI=0)
+target_compile_definitions(drasil PRIVATE DLL_EXPORT)
 
 # set variable for source files of Core/ as *.cpp
 file(GLOB_RECURSE CORE_SRC "Core/*.cpp")
@@ -71,3 +71,13 @@ add_custom_command(TARGET drasil POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy
     $<TARGET_FILE:drasil>
     ../../Nexus/build)
+
+add_custom_command(TARGET drasil POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+    $<TARGET_FILE:drasil>
+    ../../Games/Menu/build)
+
+add_custom_command(TARGET drasil POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+    $<TARGET_FILE:drasil>
+    ../../Graphicals/SFML/build)

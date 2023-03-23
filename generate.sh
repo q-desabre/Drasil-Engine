@@ -1,0 +1,1 @@
+bash gen_drasil.sh ; bash gen_menu.sh ; bash gen_sfml.sh ; bash gen_nexus.sh

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../../Tools/DynamicLoader.hpp"
 #include "BaseCoordinator.hpp"
 
 namespace drasil
@@ -16,6 +17,9 @@ namespace drasil
         void Init(const std::string& windowName,
                   const Vec2& windowSize,
                   const std::string& assetsPath);
+
+    private:
+        DynamicLoader mDynamicLoader;
     };
 }
 

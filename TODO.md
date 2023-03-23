@@ -1,11 +1,32 @@
 Dynamic Loading
-[ ] Interface Game
-[ ] Interface Graphic
-[ ] Rework Render Component
-[ ] Load a Simple Level
+[X] Interface Game ( Level from ECS, typedef to end user ? )
+[X] CrossPlatform Loading 
+[X] Interface Graphic
+[X] Rework Render Component
+[X] Load a Simple Level
 [X] Dynamic Loader
+[X] Test Dynamic Graphic
+[ ] Change Runtime of Graphic -> Destruction of a Render System
+[ ] 
+[ ] Do the same for the network (.....)
+
+Render
+[X] SFML
+[ ] Ncurses
+[ ] SDL ( for testing prupose )
+[ ] Raylib
+[ ] Opengl ( sfml context ? )
+
+Game
+[ ] Menu ( en cours ... )
+[ ] Snake
+[ ] Pong
+[ ] Casse Brique
+[ ] Runner
+[ ] Pacman ( pas envie.. )
 
 Engine
+[ ] cfg parser
 [ ] Animated Sprite
 [ ] Add Draw Priority ( use Z axis ? by sorting mEntities in RenderSystem)
 [X] Replace bitset Input
@@ -43,7 +64,7 @@ Game
 Rework
 [ ] GetID Actor -> surcharge vector pour actor possédant d'autres actors
 [X] Rename IRenderSystem to ARenderSystem
-[ ] Remove Ref to Level on Game Class to simplify Level creation
+[X] Remove Ref to Level on Game Class to simplify Level creation
 
 BONUS
 [ ] 3D Actor - Need OpenGL Context | Custom Render System (need tweek on coordinator)

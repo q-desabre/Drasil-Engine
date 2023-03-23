@@ -1,1 +1,0 @@
-cd Nexus/build ; cmake .. -G "Unix Makefiles" ; make

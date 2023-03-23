@@ -16,6 +16,7 @@ namespace drasil
         std::shared_ptr<T> RegisterSystem()
         {
             const char* typeName = typeid(T).name();
+            std::cout << "Registering system " << typeName << std::endl;
 
             assert(mSystems.find(typeName) == mSystems.end() &&
                    "Registering system more than once.");
@@ -23,6 +24,16 @@ namespace drasil
             auto system = std::make_shared<T>();
             mSystems.insert({typeName, system});
             return system;
+        }
+
+        void RegisterSystemManual(std::shared_ptr<System> system)
+        {
+            const char* typeName = typeid(ARenderSystem).name();
+
+            assert(mSystems.find(typeName) == mSystems.end() &&
+                   "Registering system more than once.");
+
+            mSystems.insert({typeName, system});
         }
 
         template <typename T>
@@ -75,7 +86,8 @@ namespace drasil
         }
 
     private:
-        std::unordered_map<const char*, Signature> mSignatures{};
-        std::unordered_map<const char*, std::shared_ptr<System>> mSystems{};
+        // had to replace const char * to handle mangling of .dll
+        std::unordered_map<std::string, Signature> mSignatures{};
+        std::unordered_map<std::string, std::shared_ptr<System>> mSystems{};
     };
 }
