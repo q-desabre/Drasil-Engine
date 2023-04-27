@@ -23,27 +23,26 @@ Game
 [ ] Pong
 [ ] Casse Brique
 [ ] Runner
-[ ] Pacman ( pas envie.. )
+[ ] Pacman ( pas envie ... )
 
 Engine
 [ ] cfg parser
 [ ] Animated Sprite
-[ ] Add Draw Priority ( use Z axis ? by sorting mEntities in RenderSystem)
+[ ] Add Draw Priority ( use Z axis ? by sorting mEntities in RenderSystem) it's here but not used
+[ ] Button V2 [Add Custom Text inside] // Waiting TextClass
+[ ] Sound System # Event / Simple Singleton ? is system really necessary
 [X] Replace bitset Input
 [X] Create Genereric Data Structs for Mouse/Keyboard
 [X] Upgrade handling input Mouse/Keyboard
-[ ] Sound System # Event / Simple Singleton ? is system really necessary
-[ ] Logger | Bind Event
+[X] Logger
 [X] Button V1 [SwapTexture, onClick]
-[ ] Button V2 [Add Custom Text inside] // Waiting TextClass
 [X] Text V1 [Font, size]
 [X] Text V2 [Color]
-[ ] Widgets [Button, Text]
-[ ] [? Custom event ?] overload sendEvent with std::string ?
-
+[X] Text V3 [Outline + font + size]
 [X] Change Render by IRender in coordinator
 [X] Change network by INetwork in coordinator
 [X] Add Drasil Namespace to engine
+[ ] [? Custom event ?] overload sendEvent with std::string ?
 
 Network
 [X] Network System \_o_/

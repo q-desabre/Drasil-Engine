@@ -31,7 +31,11 @@ namespace drasil
         MetaComponent meta;
         std::string string;
         std::string font;
+        int fontSize;
+        Vec2 size;  // Need to be set by the render system
         Vec4 color;
+        int outlineThickness;
+        Vec4 outlineColor;
     };
 
     struct RenderComponent

@@ -2,8 +2,8 @@
 #include "Parallax.hpp"
 #include "Drasil/Components.hpp"
 #include "Drasil/Core.hpp"
-#include "Drasil/Tools.hpp"
 #include "Drasil/Types.hpp"
+#include "Drasil/Utils.hpp"
 
 using namespace drasil;
 

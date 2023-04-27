@@ -33,8 +33,8 @@ namespace drasil
     {
         enum class Key
         {
-            UNKNOWN,
-            A,
+            UNKNOWN = -1,
+            A = 0,
             B,
             C,
             D,

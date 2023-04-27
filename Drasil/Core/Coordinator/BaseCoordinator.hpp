@@ -49,6 +49,12 @@ namespace drasil
         void StartServer(unsigned short port);
         void StartClient(unsigned short port);
 
+        // Getter
+        std::shared_ptr<ARenderSystem> GetRenderSystem()
+        {
+            return mRenderSystem;
+        }
+
     protected:
         void RegisterComponents();
         void RegisterSystems();
@@ -111,7 +117,6 @@ namespace drasil
         {
             mSystemManager->SetSignature<T>(signature);
         }
-
     };
 
 }  // namespace drasil

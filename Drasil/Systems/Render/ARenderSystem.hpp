@@ -18,6 +18,13 @@ namespace drasil
         virtual void UpdateMouseEvent() = 0;
         virtual void UpdateKeyboardEvent() = 0;
 
+        virtual void SetWindowSize(const Vec2& windowSize) = 0;
+        virtual void SetWindowName(const std::string& windowName) = 0;
+        virtual void SetWindowFullScreen(bool isFullScreen) = 0;
+        virtual const Vec2& GetWindowSize() const = 0;
+        virtual const std::string& GetWindowName() const = 0;
+        virtual bool IsWindowFullScreen() const = 0;
+
         virtual void SendKeyboardEvent();
         virtual void SendMouseEvent();
 

@@ -1,41 +1,19 @@
 
 #include "Button.hpp"
-#include "../../Tools.hpp"
+#include <iostream>
+#include "../../Utils.hpp"
 
 using namespace drasil;
 
 Button::Button()
 {
-    gCoordinator.AddComponent(mID, TransformComponent{.position = Vec3(0, 0, 0),
-                                                      .rotation = Vec3(0, 0, 0),
-                                                      .scale = Vec3(1, 1, 1)});
-    mSprite.SetTexture("Button_normal");
-    mSpriteHover.SetTexture("Button_hover");
-    mSpriteHover.SetActive(false);
-    mSpritePressed.SetTexture("Button_pressed");
-    mSpritePressed.SetActive(false);
-    mSpriteDisabled.SetTexture("Button_disabled");
-    mSpriteDisabled.SetActive(false);
+    InitSprites("Button", Vec3(0, 0, 0));
     BIND_MOUSE(Button::Update);
 }
 
 Button::Button(Level& l, const std::string& texture, const Vec3& pos)
 {
-    gCoordinator.AddComponent(
-        mID, TransformComponent{.position = Vec3(pos.x, pos.y, 0),
-                                .rotation = Vec3(0, 0, 0),
-                                .scale = Vec3(1, 1, 1)});
-    mSprite.SetTexture(texture + "_normal");
-    mSprite.SetPosition(pos);
-    mSpriteHover.SetTexture(texture + "_hover");
-    mSpriteHover.SetPosition(pos);
-    mSpriteHover.SetActive(false);
-    mSpritePressed.SetTexture(texture + "_pressed");
-    mSpritePressed.SetPosition(pos);
-    mSpritePressed.SetActive(false);
-    mSpriteDisabled.SetTexture(texture + "_disabled");
-    mSpriteDisabled.SetPosition(pos);
-    mSpriteDisabled.SetActive(false);
+    InitSprites(texture, pos);
     l.AddEntity(mSprite.GetID());
     l.AddEntity(mSpriteHover.GetID());
     l.AddEntity(mSpritePressed.GetID());
@@ -48,8 +26,6 @@ void Button::SetOnClick(std::function<void()> onClick)
     mOnClick = onClick;
 }
 
-#include <iostream>
-
 void Button::Update(Event& event)
 {
     auto data = event.GetParam<MouseEvent>(Events::Input::MOUSE_DATA);
@@ -57,9 +33,11 @@ void Button::Update(Event& event)
     int y = data.y;
 
     if (x >= mSprite.GetPosition().x &&
-        x <= mSprite.GetPosition().x + mSprite.GetSize().x &&
+        x <= mSprite.GetPosition().x +
+                 mSprite.GetSize().x * mSprite.GetScale().x &&
         y >= mSprite.GetPosition().y &&
-        y <= mSprite.GetPosition().y + mSprite.GetSize().y)
+        y <= mSprite.GetPosition().y +
+                 mSprite.GetSize().y * mSprite.GetScale().y)
     {
         if (data.action == MouseEvent::Action::PRESS &&
             data.button == MouseEvent::Button::LEFT)
@@ -84,4 +62,66 @@ void Button::Update(Event& event)
     mSpriteHover.SetActive(mIsHovered && !mIsPressed && !mIsDisabled);
     mSpritePressed.SetActive(!mIsHovered && mIsPressed && !mIsDisabled);
     mSpriteDisabled.SetActive(mIsDisabled);
+}
+
+void Button::InitSprites(const std::string& texture, const Vec3& pos)
+{
+    InitSprite(State::NORMAL, texture, pos);
+    InitSprite(State::HOVER, texture, pos);
+    InitSprite(State::PRESSED, texture, pos);
+    InitSprite(State::DISABLED, texture, pos);
+}
+
+void Button::InitSprite(State state,
+                        const std::string& texture,
+                        const Vec3& pos)
+{
+    switch (state)
+    {
+    case State::NORMAL:
+        mSprite.SetTexture(texture + "_normal");
+        mSprite.SetPosition(pos);
+        break;
+    case State::HOVER:
+        mSpriteHover.SetTexture(texture + "_hover");
+        mSpriteHover.SetPosition(pos);
+        mSpriteHover.SetActive(false);
+        break;
+    case State::PRESSED:
+        mSpritePressed.SetTexture(texture + "_pressed");
+        mSpritePressed.SetPosition(pos);
+        mSpritePressed.SetActive(false);
+        break;
+    case State::DISABLED:
+        mSpriteDisabled.SetTexture(texture + "_disabled");
+        mSpriteDisabled.SetPosition(pos);
+        mSpriteDisabled.SetActive(false);
+        break;
+    }
+}
+
+void Button::SetPosition(const Vec3& pos)
+{
+    mSprite.SetPosition(pos);
+    mSpriteHover.SetPosition(pos);
+    mSpritePressed.SetPosition(pos);
+    mSpriteDisabled.SetPosition(pos);
+}
+
+void Button::SetPosition(float x, float y, float z)
+{
+    mSprite.SetPosition(x, y, z);
+    mSpriteHover.SetPosition(x, y, z);
+    mSpritePressed.SetPosition(x, y, z);
+    mSpriteDisabled.SetPosition(x, y, z);
+}
+
+const Vec3& Button::GetPosition() const
+{
+    return mSprite.GetPosition();
+}
+
+const Vec2& Button::GetSize() const
+{
+    return mSprite.GetSize();
 }

@@ -37,4 +37,4 @@ target_link_libraries(sfmlRender PUBLIC sfml-graphics sfml-audio sfml-network dr
 add_custom_command(TARGET sfmlRender POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy
     $<TARGET_FILE:sfmlRender>
-    ../../../Nexus/build)
+    ../../../Nexus/build/Graphicals/)

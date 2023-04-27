@@ -16,7 +16,6 @@ namespace drasil
         std::shared_ptr<T> RegisterSystem()
         {
             const char* typeName = typeid(T).name();
-            std::cout << "Registering system " << typeName << std::endl;
 
             assert(mSystems.find(typeName) == mSystems.end() &&
                    "Registering system more than once.");

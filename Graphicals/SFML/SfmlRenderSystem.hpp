@@ -20,13 +20,24 @@ namespace drasil
         void ProcessEvents();
         void Update(float dt);
 
+        void SetWindowSize(const Vec2& windowSize);
+        void SetWindowName(const std::string& windowName);
+        void SetWindowFullScreen(bool isFullScreen);
+        const Vec2& GetWindowSize() const;
+        const std::string& GetWindowName() const;
+        bool IsWindowFullScreen() const;
+
         void UpdateMouseEvent();
         void UpdateKeyboardEvent();
 
     private:
+        void UpdateSprite(Entity, TransformComponent&, RenderComponent&);
+        void UpdateText(Entity, TransformComponent&, RenderComponent&);
         void InitRessources(const std::string& path);
 
     private:
+        std::string mWindowName;
+        Vec2 mWindowSize;
         sf::Event mEvent;
         sf::RenderWindow mWindow;
         std::map<Entity, sf::Sprite> mSprites;
@@ -43,3 +54,6 @@ extern "C" __declspec(
 {
     return std::make_shared<drasil::SfmlRenderSystem>();
 }
+
+#define TEXTURE_COMP std::get<TextureComponent>(render.data)
+#define TEXT_COMP std::get<TextComponent>(render.data)

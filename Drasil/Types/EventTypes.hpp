@@ -81,8 +81,9 @@ namespace drasil
         const ParamId KEYBOARD_DATA = "Events::Input::KEYBOARD_DATA"_hash;
     }
 
-    namespace Events::Window::Resized
+    namespace Events::Window
     {
+        const EventId RESIZE = "Events::Window::RESIZE"_hash;
         const ParamId WIDTH = "Events::Window::Resized::WIDTH"_hash;
         const ParamId HEIGHT = "Events::Window::Resized::HEIGHT"_hash;
     }
