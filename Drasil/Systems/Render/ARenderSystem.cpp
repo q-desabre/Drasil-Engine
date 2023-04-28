@@ -6,14 +6,14 @@ using namespace drasil;
 
 void ARenderSystem::SendKeyboardEvent()
 {
-    Event event(Events::Input::KEYBOARD);
-    event.SetParam(Events::Input::KEYBOARD_DATA, mKeyboardEvent);
+    Event event("keyboard");
+    event.SetParam("data", mKeyboardEvent);
     gCoordinator.SendEvent(event);
 }
 
 void ARenderSystem::SendMouseEvent()
 {
-    Event event(Events::Input::MOUSE);
-    event.SetParam(Events::Input::MOUSE_DATA, mMouseEvent);
+    Event event("mouse");
+    event.SetParam("data", mMouseEvent);
     gCoordinator.SendEvent(event);
 }

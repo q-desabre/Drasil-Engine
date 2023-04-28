@@ -29,7 +29,7 @@ file(GLOB_RECURSE CORE_SRC "Core/*.cpp")
 file(GLOB_RECURSE SYSTEM_SRC "Systems/*.cpp")
 
 # set variable for source files of Game/ as *.cpp
-file(GLOB_RECURSE GAME_SRC "Game/*.cpp")
+file(GLOB_RECURSE GAME_SRC "Actors/*.cpp")
 
 # set source to target
 target_sources(drasil PRIVATE ${CORE_SRC} ${SYSTEM_SRC} ${GAME_SRC})

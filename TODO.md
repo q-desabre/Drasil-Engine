@@ -11,7 +11,7 @@ Dynamic Loading
 [ ] Do the same for the network (.....)
 
 Render
-[X] SFML
+[X] SFML - Resize still need works
 [ ] Ncurses
 [ ] SDL ( for testing prupose )
 [ ] Raylib
@@ -31,6 +31,9 @@ Engine
 [ ] Add Draw Priority ( use Z axis ? by sorting mEntities in RenderSystem) it's here but not used
 [ ] Button V2 [Add Custom Text inside] // Waiting TextClass
 [ ] Sound System # Event / Simple Singleton ? is system really necessary
+[X] [? Custom event ?] overload sendEvent with std::string ?
+[X] Re-add Static Event for perf
+[X] AddEvent to notify RenderSystem a new Entity is born ( for size init )
 [X] Replace bitset Input
 [X] Create Genereric Data Structs for Mouse/Keyboard
 [X] Upgrade handling input Mouse/Keyboard
@@ -42,7 +45,6 @@ Engine
 [X] Change Render by IRender in coordinator
 [X] Change network by INetwork in coordinator
 [X] Add Drasil Namespace to engine
-[ ] [? Custom event ?] overload sendEvent with std::string ?
 
 Network
 [X] Network System \_o_/

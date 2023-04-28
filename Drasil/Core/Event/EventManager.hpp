@@ -1,8 +1,9 @@
 #pragma once
 
 #include <functional>
+#include <iostream>
 #include <list>
-#include <unordered_map>
+#include <map>
 #include "../../Types.hpp"
 #include "Event.hpp"
 
@@ -12,34 +13,17 @@ namespace drasil
     class EventManager
     {
     public:
-        void AddListener(EventId eventId,
-                         std::function<void(Event&)> const& listener)
-        {
-            listeners[eventId].push_back(listener);
-        }
+        EventManager() {}
 
-        void SendEvent(Event& event)
-        {
-            uint32_t type = event.GetType();
+        void AddListener(EventId, std::function<void(Event&)> const&);
+        void AddListener(const std::string&,
+                         std::function<void(Event&)> const&);
 
-            for (auto const& listener : listeners[type])
-            {
-                listener(event);
-            }
-        }
+        void SendEvent(Event& event);
 
-        void SendEvent(EventId eventId)
-        {
-            Event event(eventId);
-
-            for (auto const& listener : listeners[eventId])
-            {
-                listener(event);
-            }
-        }
+        static void NotifyUpdateEntity(Entity entity);
 
     private:
-        std::unordered_map<EventId, std::list<std::function<void(Event&)>>>
-            listeners;
+        std::map<EventId, std::list<std::function<void(Event&)>>> listeners;
     };
-}
+};

@@ -8,6 +8,12 @@ using namespace drasil;
 Button::Button()
 {
     InitSprites("Button", Vec3(0, 0, 0));
+    mIsPressed = false;
+    mIsHovered = false;
+    mSprite.SetActive(!mIsHovered && !mIsPressed && !mIsDisabled);
+    mSpriteHover.SetActive(mIsHovered && !mIsPressed && !mIsDisabled);
+    mSpritePressed.SetActive(!mIsHovered && mIsPressed && !mIsDisabled);
+    mSpriteDisabled.SetActive(mIsDisabled);
     BIND_MOUSE(Button::Update);
 }
 
@@ -28,7 +34,7 @@ void Button::SetOnClick(std::function<void()> onClick)
 
 void Button::Update(Event& event)
 {
-    auto data = event.GetParam<MouseEvent>(Events::Input::MOUSE_DATA);
+    auto data = event.GetParam<MouseEvent>("data");
     int x = data.x;
     int y = data.y;
 
@@ -81,6 +87,7 @@ void Button::InitSprite(State state,
     case State::NORMAL:
         mSprite.SetTexture(texture + "_normal");
         mSprite.SetPosition(pos);
+        mSprite.SetActive(true);
         break;
     case State::HOVER:
         mSpriteHover.SetTexture(texture + "_hover");

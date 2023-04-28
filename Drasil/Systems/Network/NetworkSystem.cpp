@@ -47,7 +47,7 @@ void NetworkSystem::StartClient(unsigned short port)
 
 void NetworkSystem::SendPacketListener(Event& event)
 {
-    Packet packet = event.GetParam<Packet>(Events::Network::PACKET);
+    Packet packet = event.GetParam<Packet>("packet");
     // for each port
     int size = mPorts.Size();
     for (int i = 0; i < size; i++)
@@ -58,7 +58,7 @@ void NetworkSystem::SendPacketListener(Event& event)
 
 void NetworkSystem::RecvPacketListener(Event& event)
 {
-    Packet packet = event.GetParam<Packet>(Events::Network::PACKET);
+    Packet packet = event.GetParam<Packet>("packet");
     std::string message;
     packet >> message;
     // std::cout << "Recieve : " << message << std::endl;
@@ -67,8 +67,8 @@ void NetworkSystem::RecvPacketListener(Event& event)
     {
         Packet packet2;
         packet2 << "Hello from server";
-        Event event(Events::Network::SEND_PACKET);
-        event.SetParam<Packet>(Events::Network::PACKET, packet2);
+        Event event("NetworkSendPacket");
+        event.SetParam<Packet>("packet", packet2);
         gCoordinator.SendEvent(event);
     }
 }
@@ -88,8 +88,8 @@ void NetworkSystem::ListenServer()
                           << std::endl;
             }
 
-            Event event(Events::Network::PACKET_RECEIVED);
-            event.SetParam(Events::Network::PACKET, mPacket);
+            Event event("NetworkRecievePacket");
+            event.SetParam("packet", mPacket);
             gCoordinator.SendEvent(event);
         }
     }
@@ -102,8 +102,8 @@ void NetworkSystem::Listen()
     {
         if (mSocket.receive(mPacket, mSender, mClientPort) == sf::Socket::Done)
         {
-            Event event(Events::Network::PACKET_RECEIVED);
-            event.SetParam(Events::Network::PACKET, mPacket);
+            Event event("NetworkRecievePacket");
+            event.SetParam("packet", mPacket);
             gCoordinator.SendEvent(event);
         }
     }

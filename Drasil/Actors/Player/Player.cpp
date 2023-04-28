@@ -41,8 +41,8 @@ void Player::CreateNetwork()
 
     p << 1 << mID;
     // << mPosition.x << mPosition.y;
-    Event e(Events::Network::SEND_PACKET);
-    e.SetParam(Events::Network::PACKET, p);
+    Event e("NetworkPacketSend");
+    e.SetParam("packet", p);
     gCoordinator.SendEvent(e);
 }
 
@@ -53,8 +53,8 @@ void Player::UpdateNetwork()
 
     p << 2 << mID;
     // << mPosition.x << mPosition.y;
-    Event e(Events::Network::SEND_PACKET);
-    e.SetParam(Events::Network::PACKET, p);
+    Event e("NetworkPacketSend");
+    e.SetParam("packet", p);
     gCoordinator.SendEvent(e);
 }
 
@@ -62,7 +62,7 @@ void Player::OnUpdateNetwork(Event& e)
 {
     std::cout << "Recieve update packed player" << std::endl;
 
-    Packet packet = e.GetParam<Packet>(Events::Network::PACKET);
+    Packet packet = e.GetParam<Packet>("packet");
     // int type << packet;
 }
 
@@ -71,7 +71,7 @@ void Player::DestroyNetwork()
     Packet p;
 
     p << 3 << mID;
-    Event e(Events::Network::SEND_PACKET);
-    e.SetParam(Events::Network::PACKET, p);
+    Event e("NetworkPacketSend");
+    e.SetParam("packet", p);
     gCoordinator.SendEvent(e);
 }

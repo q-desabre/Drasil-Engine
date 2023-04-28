@@ -36,10 +36,9 @@ namespace drasil
         Signature GetSignature(Entity entity);
 
         // Event methods
-        void AddEventListener(EventId eventId,
+        void AddEventListener(const std::string&,
                               std::function<void(Event&)> const& listener);
         void SendEvent(Event& event);
-        void SendEvent(EventId eventId);
 
         // Level
         void PushLevel(std::shared_ptr<Level> Level);

@@ -7,12 +7,12 @@ Text::Text()
 {
     gCoordinator.AddComponent(mID, RenderComponent());
     auto& render = GET_COMPONENT(mID, RenderComponent);
-    render.meta.isModified = true;
     render.meta.type = RenderType::TEXT;
     render.data = TextComponent{.string = "Hello World",
                                 .font = "Trispace-Regular",
                                 .fontSize = 30,
                                 .color = Vec4(255, 255, 255, 255)};
+    EventManager::NotifyUpdateEntity(mID);
 }
 
 Text::Text(const std::string& text)
@@ -23,56 +23,56 @@ Text::Text(const std::string& text)
                                                  .scale = Vec3(1, 1, 1)});
     gCoordinator.AddComponent(mID, RenderComponent());
     auto& render = GET_COMPONENT(mID, RenderComponent);
-    render.meta.isModified = true;
     render.meta.type = RenderType::TEXT;
     render.data = TextComponent{.string = text,
                                 .font = "Trispace-Regular",
                                 .fontSize = 30,
                                 .color = Vec4(255, 255, 255, 255)};
+    EventManager::NotifyUpdateEntity(mID);
 }
 
 void Text::SetText(const std::string& text)
 {
     auto& render = GET_COMPONENT(mID, RenderComponent);
-    render.meta.isModified = true;
     std::get<TextComponent>(render.data).string = text;
+    EventManager::NotifyUpdateEntity(mID);
 }
 
 void Text::SetFont(const std::string& fontName)
 {
     auto& render = GET_COMPONENT(mID, RenderComponent);
-    render.meta.isModified = true;
     std::get<TextComponent>(render.data).font = fontName;
+    EventManager::NotifyUpdateEntity(mID);
 }
 
 void Text::SetPosition(const Vec3& pos)
 {
     auto& render = GET_COMPONENT(mID, RenderComponent);
     auto& transform = GET_COMPONENT(mID, TransformComponent);
-    render.meta.isModified = true;
     transform.position = pos;
+    EventManager::NotifyUpdateEntity(mID);
 }
 
 void Text::SetPosition(float x, float y, float z)
 {
     auto& render = GET_COMPONENT(mID, RenderComponent);
     auto& transform = GET_COMPONENT(mID, TransformComponent);
-    render.meta.isModified = true;
     transform.position = Vec3(x, y, z);
+    EventManager::NotifyUpdateEntity(mID);
 }
 
 void Text::setFontSize(int size)
 {
     auto& render = GET_COMPONENT(mID, RenderComponent);
-    render.meta.isModified = true;
     std::get<TextComponent>(render.data).fontSize = size;
+    EventManager::NotifyUpdateEntity(mID);
 }
 
 void Text::SetOutlineThickness(int thickness)
 {
     auto& render = GET_COMPONENT(mID, RenderComponent);
-    render.meta.isModified = true;
     std::get<TextComponent>(render.data).outlineThickness = thickness;
+    EventManager::NotifyUpdateEntity(mID);
 }
 
 void Text::SetOutlineColor(unsigned char r,
@@ -81,8 +81,8 @@ void Text::SetOutlineColor(unsigned char r,
                            unsigned char a)
 {
     auto& render = GET_COMPONENT(mID, RenderComponent);
-    render.meta.isModified = true;
     std::get<TextComponent>(render.data).outlineColor = Vec4(r, g, b, a);
+    EventManager::NotifyUpdateEntity(mID);
 }
 
 void Text::SetColor(unsigned char r,
@@ -91,8 +91,8 @@ void Text::SetColor(unsigned char r,
                     unsigned char a)
 {
     auto& render = GET_COMPONENT(mID, RenderComponent);
-    render.meta.isModified = true;
     std::get<TextComponent>(render.data).color = Vec4(r, g, b, a);
+    EventManager::NotifyUpdateEntity(mID);
 }
 
 const Vec2& Text::GetSize() const

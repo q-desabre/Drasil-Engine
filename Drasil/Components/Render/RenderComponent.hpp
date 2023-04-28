@@ -15,7 +15,6 @@ namespace drasil
 
     struct MetaComponent
     {
-        bool isModified = false;
         RenderType type;
     };
 

@@ -80,7 +80,7 @@ Signature BaseCoordinator::GetSignature(Entity entity)
 // Event methods
 
 void BaseCoordinator::AddEventListener(
-    EventId eventId,
+    const std::string& eventId,
     std::function<void(Event&)> const& listener)
 {
     mEventManager->AddListener(eventId, listener);
@@ -89,11 +89,6 @@ void BaseCoordinator::AddEventListener(
 void BaseCoordinator::SendEvent(Event& event)
 {
     mEventManager->SendEvent(event);
-}
-
-void BaseCoordinator::SendEvent(EventId eventId)
-{
-    mEventManager->SendEvent(eventId);
 }
 
 // Level

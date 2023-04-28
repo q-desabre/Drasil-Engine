@@ -20,22 +20,23 @@ Menu::Menu()
     AddEntity(s.GetID());
     AddEntity(t.GetID());
     AddEntity(b.GetID());
-    BIND_EVENT(drasil::Events::Input::KEYBOARD, Menu::OnKeyboard);
-    BIND_EVENT(drasil::Events::Game::TICK, Menu::OnTick);
+    t.SetPosition(WINDOW_WIDTH / 2 - t.GetSize().x / 2, 100);
+    b.SetPosition(WINDOW_WIDTH / 2 - b.GetSize().x / 2, 400);
+
+    std::cout << "Button Width " << b.GetSize().x << std::endl;
+    BIND_EVENT("keyboard", Menu::OnKeyboard);
+    BIND_EVENT("tick", Menu::OnTick);
 }
 
 void Menu::OnTick(drasil::Event& e)
 {
-    t.SetPosition(WINDOW_WIDTH / 2 - t.GetSize().x / 2, 100);
-    std::cout << t.GetPosition().x << std::endl;
-    std::cout << t.GetSize().x << std::endl;
-    std::cout << WINDOW_WIDTH << std::endl;
+    drasil::EventManager::NotifyUpdateEntity(t.GetID());
+    b.SetPosition(WINDOW_WIDTH / 2 - b.GetSize().x / 2, 400);
 }
 
 void Menu::OnKeyboard(drasil::Event& e)
 {
-    auto key =
-        e.GetParam<drasil::KeyboardEvent>(drasil::Events::Input::KEYBOARD_DATA);
+    auto key = e.GetParam<drasil::KeyboardEvent>("data");
     if (key.action == drasil::KeyboardEvent::Action::RELEASE)
         mInputEnabled = true;
 

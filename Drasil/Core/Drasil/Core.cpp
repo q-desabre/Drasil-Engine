@@ -11,8 +11,7 @@ Core::Core(const std::string& name,
            const std::string& assetsPath)
 {
     gCoordinator.Init(name, winSize, assetsPath);
-    gCoordinator.AddEventListener(
-        METHOD_LISTENER(Events::Window::QUIT, Core::Stop));
+    gCoordinator.AddEventListener(METHOD_LISTENER("quit", Core::Stop));
 }
 
 Core::~Core()
@@ -30,8 +29,8 @@ void Core::Start()
         // cap to 60 fps
         if (mDelta > 1.0f / 60.0f)
         {
-            Event event(Events::Game::TICK);
-            event.SetParam(Events::Game::DELTA, mDelta);
+            Event event("tick");
+            event.SetParam("delta", mDelta);
             gCoordinator.SendEvent(event);
 
             start = std::chrono::high_resolution_clock::now();

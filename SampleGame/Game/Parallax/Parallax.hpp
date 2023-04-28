@@ -2,8 +2,8 @@
 #pragma once
 
 #include <vector>
+#include "Drasil/Actors.hpp"
 #include "Drasil/Core.hpp"
-#include "Drasil/Game.hpp"
 
 class Parallax : public drasil::Actor
 {

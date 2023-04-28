@@ -31,6 +31,8 @@ namespace drasil
         void UpdateKeyboardEvent();
 
     private:
+        void UpdateEntity(Event& event);
+        void NotifyUpdate(Entity);
         void UpdateSprite(Entity, TransformComponent&, RenderComponent&);
         void UpdateText(Entity, TransformComponent&, RenderComponent&);
         void InitRessources(const std::string& path);

@@ -12,8 +12,8 @@ void PlayerControlSystem::InitSignature()
     signature.set(gCoordinator.GetComponentType<StatusComponent>());
     gCoordinator.SetSystemSignature<PlayerControlSystem>(signature);
 
-    gCoordinator.AddEventListener(METHOD_LISTENER(
-        Events::Input::KEYBOARD, PlayerControlSystem::InputListener));
+    gCoordinator.AddEventListener(
+        METHOD_LISTENER("keyboard", PlayerControlSystem::InputListener));
 }
 
 void PlayerControlSystem::Update(float dt)
