@@ -1,5 +1,7 @@
 
 #include "Pawn.hpp"
+#include "../../Components/TransformComponent.hpp"
+#include "../../Core/Coordinator/Coordinator.hpp"
 
 using namespace drasil;
 

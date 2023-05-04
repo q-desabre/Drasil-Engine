@@ -1,12 +1,13 @@
 
 #pragma once
 
-#include "../../Interface.hpp"
+#include <iostream>
+#include "../../Common/Interfaces/IReplicable.hpp"
 #include "../Sprite/Sprite.hpp"
 
 namespace drasil
 {
-    class Player : public Sprite, public IReplicated
+    class Player : public Sprite, public IReplicable
     {
     public:
         Player();

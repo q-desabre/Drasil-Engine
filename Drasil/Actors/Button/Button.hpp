@@ -2,7 +2,9 @@
 #pragma once
 
 #include <functional>
-#include "../Sprite/Sprite.hpp"
+#include "../../Common/Types/Types.hpp"
+#include "../../Core/Level/Level.hpp"
+#include "Sprite.hpp"
 
 namespace drasil
 {

@@ -1,6 +1,10 @@
 
 #include "Sprite.hpp"
 #include <iostream>
+#include "../../Components/MovementComponent.hpp"
+#include "../../Components/RenderComponent.hpp"
+#include "../../Components/TransformComponent.hpp"
+#include "../../Core/Coordinator/Coordinator.hpp"
 
 using namespace drasil;
 
@@ -16,9 +20,6 @@ Sprite::Sprite()
 Sprite::Sprite(const std::string& texture)
 {
     gCoordinator.AddComponent(mID, MovementComponent());
-    gCoordinator.AddComponent(mID, TransformComponent{.position = Vec3(0, 0, 0),
-                                                      .rotation = Vec3(0, 0, 0),
-                                                      .scale = Vec3(1, 1, 1)});
     gCoordinator.AddComponent(mID, RenderComponent());
     SetTexture(texture);
     EventManager::NotifyUpdateEntity(mID);

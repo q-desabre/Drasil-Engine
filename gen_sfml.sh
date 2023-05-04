@@ -1,1 +1,1 @@
-cd Graphicals/SFML/build ; cmake .. -G "Unix Makefiles" ; make
+cd Graphicals/SFML/build ; cmake .. -G "Unix Makefiles" ; make -j4

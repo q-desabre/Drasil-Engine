@@ -1,5 +1,7 @@
 
 #include "Actor.hpp"
+#include "../../Components/StatusComponent.hpp"
+#include "../../Core/Coordinator/Coordinator.hpp"
 
 using namespace drasil;
 

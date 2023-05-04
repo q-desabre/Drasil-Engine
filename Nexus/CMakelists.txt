@@ -12,7 +12,7 @@ add_executable(nexus main.cpp)
 # set variable for source files of Core/ as *.cpp
 # file(GLOB_RECURSE GAME_SRC "Game/*.cpp")
 
-# target_sources(nexus PRIVATE ${GAME_SRC})
+# recursilely
 target_include_directories(nexus PUBLIC
     "../"
 )

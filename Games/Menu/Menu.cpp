@@ -26,6 +26,15 @@ Menu::Menu()
     std::cout << "Button Width " << b.GetSize().x << std::endl;
     BIND_EVENT("keyboard", Menu::OnKeyboard);
     BIND_EVENT("tick", Menu::OnTick);
+
+    b.SetOnClick(
+        [this]()
+        {
+            auto it = mGames.begin();
+            std::advance(it, mSelectedGame);
+            std::cout << "Loading " << it->first << std::endl;
+            drasil::Engine::LoadLevel(it->second);
+        });
 }
 
 void Menu::OnTick(drasil::Event& e)

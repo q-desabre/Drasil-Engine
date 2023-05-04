@@ -1,8 +1,7 @@
 
 #pragma once
 
-#include "../../Components.hpp"
-#include "../../Drasil.hpp"
+#include "../../Common/Types/Types.hpp"
 
 namespace drasil
 {

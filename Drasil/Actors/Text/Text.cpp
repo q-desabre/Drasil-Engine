@@ -1,5 +1,8 @@
 
 #include "Text.hpp"
+#include "../../Components/RenderComponent.hpp"
+#include "../../Components/TransformComponent.hpp"
+#include "../../Core/Coordinator/Coordinator.hpp"
 
 using namespace drasil;
 
@@ -17,10 +20,6 @@ Text::Text()
 
 Text::Text(const std::string& text)
 {
-    gCoordinator.AddComponent(mID,
-                              TransformComponent{.position = Vec3(500, 500, 0),
-                                                 .rotation = Vec3(0, 0, 0),
-                                                 .scale = Vec3(1, 1, 1)});
     gCoordinator.AddComponent(mID, RenderComponent());
     auto& render = GET_COMPONENT(mID, RenderComponent);
     render.meta.type = RenderType::TEXT;

@@ -1,16 +1,23 @@
-cmake_minimum_required(VERSION 3.14)
+MACRO(HEADER_DIRECTORIES return_list)
+    FILE(GLOB_RECURSE new_list *.hpp)
+    SET(dir_list "")
 
-# set CMAKE_CXX to c++20
+    FOREACH(file_path ${new_list})
+        GET_FILENAME_COMPONENT(dir_path ${file_path} PATH)
+        SET(dir_list ${dir_list} ${dir_path})
+    ENDFOREACH()
+
+    LIST(REMOVE_DUPLICATES dir_list)
+    SET(${return_list} ${dir_list})
+ENDMACRO()
+
+cmake_minimum_required(VERSION 3.14)
 set(CMAKE_CXX_STANDARD 20)
 
 project(drasil)
 
-# make shared library named drasil
-# list flag of add_library
-# SHARED: build a shared library
-# MODULE: build a module
-# STATIC: build a static library
-# OBJECT: build an object library
+HEADER_DIRECTORIES(header_dir_list)
+
 add_library(drasil SHARED)
 set_property(TARGET drasil PROPERTY ENABLE_EXPORTS ON)
 
@@ -31,40 +38,15 @@ file(GLOB_RECURSE SYSTEM_SRC "Systems/*.cpp")
 # set variable for source files of Game/ as *.cpp
 file(GLOB_RECURSE GAME_SRC "Actors/*.cpp")
 
+# set include directories
+# recursive search for header files
+list(LENGTH header_dir_list header_dir_list_count)
+message(STATUS "[INFO] Found ${header_dir_list_count} header directories.")
+
+target_include_directories(drasil PUBLIC ${header_dir_list})
+
 # set source to target
 target_sources(drasil PRIVATE ${CORE_SRC} ${SYSTEM_SRC} ${GAME_SRC})
-
-# # Core and subdirectories target include
-# target_include_directories(drasil
-# PUBLIC "Core"
-# "Core/System"
-# "Core/Entity"
-# "Core/Event"
-# "Core/Component"
-# "Core/Drasil"
-# "Core/Level"
-# "Core/Manager"
-# "Core/Coordinator")
-
-# target_include_directories(drasil
-# PUBLIC "Systems"
-# "Systems/Network"
-# "Systems/Render"
-# "Systems/Physics"
-# "Systems/PlayerController")
-
-# target_include_directories(drasil
-# PUBLIC "Types"
-# "Types/Maths")
-
-# target_include_directories(drasil
-# PUBLIC "Components")
-
-# target_include_directories(drasil
-# PUBLIC "Game")
-
-# target_include_directories(drasil
-# PUBLIC "Tools" "Interface")
 
 # copy binary to bin folder
 add_custom_command(TARGET drasil POST_BUILD

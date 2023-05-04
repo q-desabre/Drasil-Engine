@@ -7,7 +7,6 @@ Dynamic Loading
 [X] Dynamic Loader
 [X] Test Dynamic Graphic
 [ ] Change Runtime of Graphic -> Destruction of a Render System
-[ ] 
 [ ] Do the same for the network (.....)
 
 Render
@@ -31,6 +30,10 @@ Engine
 [ ] Add Draw Priority ( use Z axis ? by sorting mEntities in RenderSystem) it's here but not used
 [ ] Button V2 [Add Custom Text inside] // Waiting TextClass
 [ ] Sound System # Event / Simple Singleton ? is system really necessary
+[ ] Better cut of Network system
+[X] Clean Include
+[X] Clean drasil::Core
+[X] Clean Coordinator Again
 [X] [? Custom event ?] overload sendEvent with std::string ?
 [X] Re-add Static Event for perf
 [X] AddEvent to notify RenderSystem a new Entity is born ( for size init )

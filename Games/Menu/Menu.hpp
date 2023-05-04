@@ -2,12 +2,7 @@
 #pragma once
 
 #include <memory>
-#include "Drasil/Actors.hpp"
-#include "Drasil/Components.hpp"
 #include "Drasil/Drasil.hpp"
-#include "Drasil/Systems.hpp"
-#include "Drasil/Types.hpp"
-#include "Drasil/Utils.hpp"
 
 class Menu : public drasil::Level
 {
