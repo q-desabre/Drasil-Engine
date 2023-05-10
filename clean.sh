@@ -7,9 +7,9 @@
 #create a simple function that takes a path as argument
 
 
-function generate() {
-    echo "generating $1"
-    cd $1 ; make ; cd - > /dev/null
+function clean() {
+    echo "Cleaning $1"
+    cd $1 ; make clean ; cd - > /dev/null
 }
 
 
@@ -28,25 +28,25 @@ fi
 #check if first arg is "all"
 if [ $1 = "all" ]
   then
-    generate "Drasil/build"
-    generate "Games/Menu/build"
-    generate "Graphicals/SFML/build"
-    generate "Nexus/build"
+    clean "Drasil/build"
+    clean "Games/Menu/build"
+    clean "Graphicals/SFML/build"
+    clean "Nexus/build"
     exit 0
 elif [ $1 = "drasil" ]
   then
-    generate "Drasil/build"
+    clean "Drasil/build"
     exit 0
 elif [ $1 = "menu" ]
   then
-    generate "Games/Menu/build"
+    clean "Games/Menu/build"
     exit 0
 elif [ $1 = "sfml" ]
   then
-    generate "Graphicals/SFML/build"
+    clean "Graphicals/SFML/build"
     exit 0
 elif [ $1 = "nexus" ]
   then
-    generate "Nexus/build"
+    clean "Nexus/build"
     exit 0
 fi

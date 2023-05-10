@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../../Core/System/System.hpp"
+#include "../ASystem.hpp"
 
 namespace drasil
 {
-    class PhysicsSystem : public System
+    class PhysicsSystem : public ASystem
     {
     public:
         void InitSignature();

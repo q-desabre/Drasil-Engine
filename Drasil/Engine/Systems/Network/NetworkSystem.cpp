@@ -1,7 +1,7 @@
 
 #include "NetworkSystem.hpp"
 #include "../../Components/Components.hpp"
-#include "../../Core/Coordinator/Coordinator.hpp"
+#include "../../Coordinator/Coordinator.hpp"
 
 using namespace drasil;
 

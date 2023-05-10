@@ -3,7 +3,7 @@
 
 #include <SFML/Network.hpp>
 #include <thread>
-#include "../../Common/Types/Types.hpp"
+#include "../../../Common/Types/Types.hpp"
 #include "INetworkSystem.hpp"
 #include "Packet.hpp"
 

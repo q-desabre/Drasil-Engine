@@ -1,6 +1,6 @@
 
 #include "ARenderSystem.hpp"
-#include "../../Core/Coordinator/Coordinator.hpp"
+#include "../../Coordinator/Coordinator.hpp"
 
 using namespace drasil;
 

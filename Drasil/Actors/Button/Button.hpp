@@ -3,8 +3,8 @@
 
 #include <functional>
 #include "../../Common/Types/Types.hpp"
-#include "../../Core/Level/Level.hpp"
-#include "Sprite.hpp"
+#include "../../Engine/Level/Level.hpp"
+#include "../Sprite/Sprite.hpp"
 
 namespace drasil
 {

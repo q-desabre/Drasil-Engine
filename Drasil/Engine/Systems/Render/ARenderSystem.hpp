@@ -1,13 +1,13 @@
 #pragma once
 
 #include <string>
-#include "../../Common/Types/Types.hpp"
-#include "../../Core/System/System.hpp"
+#include "../../../Common/Types/Types.hpp"
+#include "../ASystem.hpp"
 
 // TODO add flag full screen etc
 namespace drasil
 {
-    class ARenderSystem : public System
+    class ARenderSystem : public ASystem
     {
     public:
         virtual void InitSignature() = 0;

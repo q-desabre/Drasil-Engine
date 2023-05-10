@@ -38,7 +38,6 @@ void Coordinator::LoadRenderSystem(const std::string& path)
     mRenderSystem = f();
     mSystemManager->RegisterRenderSystem(mRenderSystem);
     mRenderSystem->InitSignature();
-    mRenderSystem->InitRender("Drasil", Vec2(800, 600), "./Assets/");
 }
 
 void Coordinator::PushLevel(std::shared_ptr<Level> Level)

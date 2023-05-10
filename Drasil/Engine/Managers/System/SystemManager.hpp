@@ -3,8 +3,8 @@
 #include <cassert>
 #include <memory>
 #include <unordered_map>
-#include "../../Common/Types/Types.hpp"
-#include "System.hpp"
+#include "../../../Common/Types/Types.hpp"
+#include "../../Systems/ASystem.hpp"
 
 namespace drasil
 {
@@ -25,7 +25,7 @@ namespace drasil
             return system;
         }
 
-        void RegisterRenderSystem(std::shared_ptr<System> system)
+        void RegisterRenderSystem(std::shared_ptr<ASystem> system)
         {
             const char* typeName = typeid(ARenderSystem).name();
 
@@ -87,6 +87,6 @@ namespace drasil
     private:
         // had to replace const char * to handle mangling of .dll
         std::unordered_map<std::string, Signature> mSignatures{};
-        std::unordered_map<std::string, std::shared_ptr<System>> mSystems{};
+        std::unordered_map<std::string, std::shared_ptr<ASystem>> mSystems{};
     };
 }

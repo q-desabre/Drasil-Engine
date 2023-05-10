@@ -1,8 +1,8 @@
 
 #include "Text.hpp"
-#include "../../Components/RenderComponent.hpp"
-#include "../../Components/TransformComponent.hpp"
-#include "../../Core/Coordinator/Coordinator.hpp"
+#include "../../Engine/Components/RenderComponent.hpp"
+#include "../../Engine/Components/TransformComponent.hpp"
+#include "../../Engine/Coordinator/Coordinator.hpp"
 
 using namespace drasil;
 

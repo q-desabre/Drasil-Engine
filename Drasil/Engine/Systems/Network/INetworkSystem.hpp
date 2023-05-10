@@ -1,13 +1,14 @@
 
 #pragma once
 
-#include "../../Core/System/System.hpp"
+#include "../../../Common/Types/Types.hpp"
+#include "../ASystem.hpp"
 
 namespace drasil
 {
     class Event;
 
-    class INetworkSystem : public System
+    class INetworkSystem : public ASystem
     {
     public:
         virtual void StartServer(unsigned short port) = 0;

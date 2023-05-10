@@ -3,7 +3,6 @@
 
 #include <map>
 #include "Drasil/Drasil.hpp"
-#include "Drasil/Systems/Render/ARenderSystem.hpp"
 #include "Manager/Manager.hpp"
 #include "SFML/Graphics.hpp"
 

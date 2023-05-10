@@ -1,13 +1,13 @@
 #pragma once
 
 #include <bitset>
-#include "../../Core/System/System.hpp"
+#include "../ASystem.hpp"
 
 namespace drasil
 {
     class Event;
 
-    class PlayerControlSystem : public System
+    class PlayerControlSystem : public ASystem
     {
     public:
         void InitSignature();

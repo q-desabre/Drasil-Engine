@@ -1,1 +1,0 @@
-cd Drasil/build ; cmake .. -G "Unix Makefiles" ; make -j4

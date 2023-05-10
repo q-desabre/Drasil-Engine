@@ -4,8 +4,8 @@
 #include <chrono>
 #include <memory>
 #include <string>
-#include "../Common/Types/Types.hpp"
-#include "Level/Level.hpp"
+#include "../../Common/Types/Types.hpp"
+#include "../Level/Level.hpp"
 
 namespace drasil
 {

@@ -2,9 +2,6 @@
 #include "SfmlRenderSystem.hpp"
 #include <filesystem>
 #include <iostream>
-#include "Drasil/Components.hpp"
-#include "Drasil/Drasil.hpp"
-#include "Drasil/Common.hpp"
 
 using namespace drasil;
 
@@ -82,7 +79,7 @@ void SfmlRenderSystem::Update(float dt)
 void SfmlRenderSystem::UpdateEntity(Event& event)
 {
     auto entity = event.GetParam<Entity>("entity");
-   
+
     auto& render = gCoordinator.GetComponent<RenderComponent>(entity);
     auto& transform = gCoordinator.GetComponent<TransformComponent>(entity);
     if (render.meta.type == RenderType::TEXTURE)

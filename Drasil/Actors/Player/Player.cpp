@@ -1,9 +1,9 @@
 
 #include "Player.hpp"
-#include "../../Components/InputComponent.hpp"
-#include "../../Components/NetworkComponent.hpp"
-#include "../../Core/Coordinator/Coordinator.hpp"
-#include "../../Systems/Network/Packet.hpp"
+#include "../../Engine/Components/InputComponent.hpp"
+#include "../../Engine/Components/NetworkComponent.hpp"
+#include "../../Engine/Coordinator/Coordinator.hpp"
+#include "../../Engine/Systems/Network/Packet.hpp"
 
 using namespace drasil;
 

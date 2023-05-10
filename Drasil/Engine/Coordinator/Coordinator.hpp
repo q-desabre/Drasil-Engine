@@ -1,9 +1,9 @@
 #pragma once
 
 #include "../../Common/Common.hpp"
-#include "../Event/EventManager.hpp"
-#include "../Level/LevelManager.hpp"
-#include "BaseCoordinator.hpp"
+#include "../Managers/Event/EventManager.hpp"
+#include "../Managers/Level/LevelManager.hpp"
+#include "BaseCoordinator/BaseCoordinator.hpp"
 
 namespace drasil
 {

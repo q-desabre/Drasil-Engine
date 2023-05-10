@@ -5,9 +5,8 @@ typedef std::shared_ptr<drasil::Level> (*CreateLevelFunc)(void);
 
 int main()
 {
-    drasil::DynamicLoader dl;
-
     drasil::Core core("SampleGame", drasil::Vec2(1920, 1080), "../../Assets");
+    drasil::DynamicLoader dl;
 
     dl.Open("libmenu.dll");
     auto f = dl.GetFunction<CreateLevelFunc>("CreateLevel");

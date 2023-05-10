@@ -5,7 +5,7 @@
 #include <iostream>
 #include <memory>
 #include <unordered_map>
-#include "../../Common/Types/Types.hpp"
+#include "../../../Common/Types/Types.hpp"
 #include "ComponentArray.hpp"
 
 namespace drasil

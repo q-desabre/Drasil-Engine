@@ -1,6 +1,6 @@
 
 #include "EventManager.hpp"
-#include "../Coordinator/Coordinator.hpp"
+#include "../../Coordinator/Coordinator.hpp"
 
 using namespace drasil;
 

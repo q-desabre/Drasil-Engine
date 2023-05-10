@@ -30,23 +30,23 @@ target_link_libraries(drasil PUBLIC sfml-graphics sfml-audio sfml-network)
 target_compile_definitions(drasil PRIVATE DLL_EXPORT)
 
 # set variable for source files of Core/ as *.cpp
-file(GLOB_RECURSE CORE_SRC "Core/*.cpp")
+file(GLOB_RECURSE ENGINE_SRC "Engine/*.cpp")
 
 # set variable for source files of System/ as *.cpp
-file(GLOB_RECURSE SYSTEM_SRC "Systems/*.cpp")
+file(GLOB_RECURSE COMMON_SRC "Common/*.cpp")
 
 # set variable for source files of Game/ as *.cpp
-file(GLOB_RECURSE GAME_SRC "Actors/*.cpp")
+file(GLOB_RECURSE ACTORS_SRC "Actors/*.cpp")
 
 # set include directories
 # recursive search for header files
-list(LENGTH header_dir_list header_dir_list_count)
-message(STATUS "[INFO] Found ${header_dir_list_count} header directories.")
+# list(LENGTH header_dir_list header_dir_list_count)
+# message(STATUS "[INFO] Found ${header_dir_list_count} header directories.")
 
-target_include_directories(drasil PUBLIC ${header_dir_list})
+# target_include_directories(drasil PUBLIC ${header_dir_list})
 
 # set source to target
-target_sources(drasil PRIVATE ${CORE_SRC} ${SYSTEM_SRC} ${GAME_SRC})
+target_sources(drasil PRIVATE ${ENGINE_SRC} ${COMMON_SRC} ${ACTORS_SRC})
 
 # copy binary to bin folder
 add_custom_command(TARGET drasil POST_BUILD

@@ -6,9 +6,9 @@
 #include <memory>
 #include "../../Components/Components.hpp"
 #include "../../Systems/Systems.hpp"
-#include "../Component/ComponentManager.hpp"
-#include "../Entity/EntityManager.hpp"
-#include "../System/SystemManager.hpp"
+#include "../../Managers/Component/ComponentManager.hpp"
+#include "../../Managers/Entity/EntityManager.hpp"
+#include "../../Managers/System/SystemManager.hpp"
 
 namespace drasil
 {

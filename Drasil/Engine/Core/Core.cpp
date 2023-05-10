@@ -1,6 +1,6 @@
 
 #include "Core.hpp"
-#include "Coordinator/Coordinator.hpp"
+#include "../Coordinator/Coordinator.hpp"
 
 using namespace drasil;
 
@@ -14,10 +14,7 @@ Core::Core(const std::string& name,
     gCoordinator.AddEventListener(METHOD_LISTENER("quit", Core::Stop));
 }
 
-Core::~Core()
-{
-    // Textures.getInstance(true);
-}
+Core::~Core() {}
 
 void Core::Start()
 {
@@ -41,7 +38,10 @@ void Core::Start()
                      end - start)
                      .count();
     }
-    gCoordinator.PopLevel();
+
+    // Need to stop the engine instead of exiting the program
+    std::exit(0);
+    //   gCoordinator.PopLevel();
 }
 
 void Core::LoadLevel(const std::string& levelName) {}
